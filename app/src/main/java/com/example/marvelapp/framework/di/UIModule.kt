@@ -14,4 +14,12 @@ val uiModule = module {
 //    factory<DataClientFragment> { DataClientFragment() }
 //    factory<QuestionFragment> { QuestionFragment() }
 
+//    val appModule = módulo {
+//
+//        // instância única de HelloRepository
+//        singleOf ( :: HelloRepositoryImpl ) { bind < HelloRepository > ( ) }
+//
+//        // Fábrica de Apresentadores Simples
+//        factoryOf ( :: MyPresenter )
+//    }
 }
