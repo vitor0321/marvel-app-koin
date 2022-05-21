@@ -1,7 +1,6 @@
 package com.example.marvelapp
 
 import android.app.Application
-import com.example.marvelapp.framework.di.navModule
 import com.example.marvelapp.framework.di.uiModule
 import com.example.marvelapp.framework.di.useCaseModule
 import com.example.marvelapp.framework.di.viewModelModule
@@ -23,7 +22,6 @@ class MarvelApp : Application( ) {
             androidContext(this@MarvelApp)
 
             modules(
-                navModule,
                 uiModule,
                 useCaseModule,
                 viewModelModule,
