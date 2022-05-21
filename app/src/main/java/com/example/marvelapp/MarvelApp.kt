@@ -1,6 +1,7 @@
 package com.example.marvelapp
 
 import android.app.Application
+import com.example.marvelapp.framework.di.networkModule
 import com.example.marvelapp.framework.di.uiModule
 import com.example.marvelapp.framework.di.useCaseModule
 import com.example.marvelapp.framework.di.viewModelModule
@@ -22,6 +23,7 @@ class MarvelApp : Application( ) {
             androidContext(this@MarvelApp)
 
             modules(
+                networkModule,
                 uiModule,
                 useCaseModule,
                 viewModelModule,
