@@ -1,25 +1,15 @@
 package com.example.marvelapp.framework.di
 
+import com.example.marvelapp.presentation.ui.activity.MainActivity
+import com.example.marvelapp.presentation.ui.fragment.about.AboutFragment
+import com.example.marvelapp.presentation.ui.fragment.characters.CharactersFragment
+import com.example.marvelapp.presentation.ui.fragment.favorites.FavoritesFragment
 import org.koin.dsl.module
 
 val uiModule = module {
-//    factory<HomeAdapter> { HomeAdapter() }
-//    factory<HomeFragment> { HomeFragment() }
-//    factory<GenderDialog> { GenderDialog() }
-//    factory<BaseFragment> { BaseFragment() }
-//    factory<PharmaActivity> { PharmaActivity() }
-//    factory<FragmentActivity> { FragmentActivity() }
-//    factory<CheckRightFragment> { CheckRightFragment() }
-//    factory<CreditFragmentBottomSheet> { CreditFragmentBottomSheet() }
-//    factory<DataClientFragment> { DataClientFragment() }
-//    factory<QuestionFragment> { QuestionFragment() }
 
-//    val appModule = módulo {
-//
-//        // instância única de HelloRepository
-//        singleOf ( :: HelloRepositoryImpl ) { bind < HelloRepository > ( ) }
-//
-//        // Fábrica de Apresentadores Simples
-//        factoryOf ( :: MyPresenter )
-//    }
+    factory<MainActivity> { MainActivity() }
+    factory<AboutFragment> { AboutFragment() }
+    factory<CharactersFragment> { CharactersFragment() }
+    factory<FavoritesFragment> { FavoritesFragment() }
 }
