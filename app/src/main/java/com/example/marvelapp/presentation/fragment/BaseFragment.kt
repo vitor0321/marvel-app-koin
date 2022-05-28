@@ -1,4 +1,4 @@
-package com.example.marvelapp.presentation.ui.fragment
+package com.example.marvelapp.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,16 +1,11 @@
 package com.example.marvelapp.framework.di
 
+import com.example.core.usecase.GetCharactersUseCase
+import com.example.marvelapp.presentation.fragment.characters.CharactersViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-//    viewModel<HomeViewModel> {
-//        HomeViewModel(
-//            get<ClickedCheckBoxUseCase>(),
-//            get<PatientRepositoryUseCase>(),
-//            get<SearchingNationalityUseCase>()
-//        )
-//    }
-//    viewModel<PharmaViewModel> { PharmaViewModel(get<ItemComponentsData>()) }
-//    viewModel<QuestionViewModel> { QuestionViewModel() }
-//    viewModel<DataClientViewModel> { DataClientViewModel() }
+
+    viewModel<CharactersViewModel> { CharactersViewModel(get<GetCharactersUseCase>()) }
 }

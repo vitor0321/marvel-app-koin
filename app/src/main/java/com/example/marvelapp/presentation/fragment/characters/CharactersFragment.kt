@@ -1,16 +1,21 @@
-package com.example.marvelapp.presentation.ui.fragment.characters
+package com.example.marvelapp.presentation.fragment.characters
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.core.domain.model.Character
+import androidx.lifecycle.lifecycleScope
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.util.viewBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CharactersFragment : Fragment(R.layout.fragment_characters) {
 
     private val binding by viewBinding(FragmentCharactersBinding::bind)
+
+    private val viewModel: CharactersViewModel by viewModel()
 
     private val charactersAdapter = CharactersAdapter()
 
@@ -18,11 +23,11 @@ class CharactersFragment : Fragment(R.layout.fragment_characters) {
         super.onViewCreated(view, savedInstanceState)
         initCharactersAdapter()
 
-        charactersAdapter.submitList(
-            listOf(
-                Character("3d- Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"),
-            )
-        )
+        lifecycleScope.launch {
+            viewModel.charactersPagingData("").collect { pagingData ->
+                charactersAdapter.submitData(pagingData)
+            }
+        }
     }
 
     private fun initCharactersAdapter() {

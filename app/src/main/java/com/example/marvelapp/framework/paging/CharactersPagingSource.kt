@@ -7,6 +7,7 @@ import com.example.core.domain.model.Character
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.network.response.toCharacterModel
 
+@Suppress("TooGenericExceptionCaught")
 class CharactersPagingSource(
     private val remoteDataSource: CharactersRemoteDataSource<DataWrapperResponse>,
     private val query: String
@@ -16,8 +17,7 @@ class CharactersPagingSource(
         return try {
             val offset = params.key ?: 0
 
-            val queries = hashMapOf(
-                "offset" to offset.toString()
+            val queries = hashMapOf("offset" to offset.toString()
             )
             if (query.isNotEmpty()) {
                 queries["nameStartsWith"] = query
