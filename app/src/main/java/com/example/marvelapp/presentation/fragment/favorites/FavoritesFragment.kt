@@ -1,6 +1,10 @@
 package com.example.marvelapp.presentation.fragment.favorites
 
-import androidx.fragment.app.Fragment
-import com.example.marvelapp.R
+import com.example.marvelapp.databinding.FragmentFavoritesBinding
+import com.example.marvelapp.presentation.fragment.BaseFragment
 
-class FavoritesFragment : Fragment(R.layout.fragment_favorites)
+class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
+
+    override fun getViewBinding(): FragmentFavoritesBinding =
+        FragmentFavoritesBinding.inflate(layoutInflater)
+}

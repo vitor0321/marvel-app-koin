@@ -2,6 +2,7 @@ package com.example.marvelapp.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,7 +11,7 @@ import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
 import com.example.marvelapp.util.viewBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ActivityCallback {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -38,5 +39,13 @@ class MainActivity : AppCompatActivity() {
                 binding.toolbarApp.setNavigationIcon(R.drawable.ic_back)
             }
         }
+    }
+
+    override fun showMenuNavigation(show: Boolean) {
+        binding.bottomNavMain.isVisible = show
+    }
+
+    override fun showToolbar(show: Boolean) {
+        binding.toolbarApp.isVisible = show
     }
 }

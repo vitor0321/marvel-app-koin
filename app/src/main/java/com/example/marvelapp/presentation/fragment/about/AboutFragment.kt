@@ -1,6 +1,10 @@
 package com.example.marvelapp.presentation.fragment.about
 
-import androidx.fragment.app.Fragment
-import com.example.marvelapp.R
+import com.example.marvelapp.databinding.FragmentAboutBinding
+import com.example.marvelapp.presentation.fragment.BaseFragment
 
-class AboutFragment : Fragment(R.layout.fragment_about)
+class AboutFragment : BaseFragment<FragmentAboutBinding>() {
+
+    override fun getViewBinding(): FragmentAboutBinding =
+        FragmentAboutBinding.inflate(layoutInflater)
+}
