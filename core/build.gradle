@@ -1,8 +1,8 @@
-plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-    id 'kotlin'
-}
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'kotlin'
+
+apply from: "$rootDir/tools/dependencies-versions.gradle"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -12,26 +12,25 @@ java {
 dependencies{
 
     // OkHttp
-    api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    api(platform("com.squareup.okhttp3:okhttp-bom:$versions.okhttp"))
     api("com.squareup.okhttp3:okhttp")
     api("com.squareup.okhttp3:logging-interceptor")
 
     // Retrofit
-    def retrofit_version = '2.9.0'
-    api "com.squareup.retrofit2:retrofit:$retrofit_version"
-    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    api "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 
     //Paging3 Common
-    implementation "androidx.paging:paging-common:$paging_version"
+    implementation "androidx.paging:paging-common:$versions.paging"
 
     //Coroutines Core
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 
     //Javax Inject
-    implementation "javax.inject:javax.inject:1"
+    implementation "javax.inject:javax.inject:$versions.javax"
 
     //Gson
-    api 'com.google.code.gson:gson:2.8.6'
+    api "com.google.code.gson:gson:$versions.gson"
 
     //Test
     testImplementation project(":testing")

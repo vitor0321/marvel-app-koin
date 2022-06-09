@@ -2,17 +2,21 @@ package com.example.marvelapp.presentation.fragment.characters
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Boolean.FALSE
+import java.lang.Boolean.TRUE
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
 
@@ -57,21 +61,15 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
             charactersAdapter.loadStateFlow.collectLatest { loadState ->
                 binding.flipperCharacters.displayedChild = when (loadState.refresh) {
                     is LoadState.Loading -> {
-                        setShimmerVisibility(true)
-                        showToolbar(false)
-                        showMenuNavigation(false)
+                        setUiState(TRUE, FALSE, FALSE, R.color.white)
                         FLIPPER_CHILD_LOADING
                     }
                     is LoadState.NotLoading -> {
-                        setShimmerVisibility(false)
-                        showToolbar(true)
-                        showMenuNavigation(true)
+                        setUiState(FALSE, TRUE, TRUE, R.color.purple_500)
                         FLIPPER_CHILD_CHARACTER
                     }
                     is LoadState.Error -> {
-                        setShimmerVisibility(false)
-                        showToolbar(false)
-                        showMenuNavigation(false)
+                        setUiState(FALSE, FALSE, FALSE, R.color.black_700)
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
                             charactersAdapter.refresh()
                         }
@@ -80,6 +78,14 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
                 }
             }
         }
+    }
+
+    private fun setUiState(shimmer: Boolean, toolbar: Boolean, menuNav: Boolean, color: Int) {
+        setShimmerVisibility(shimmer)
+        showToolbar(toolbar)
+        showMenuNavigation(menuNav)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), color)
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {

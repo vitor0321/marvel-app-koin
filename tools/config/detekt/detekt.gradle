@@ -7,13 +7,13 @@ project.afterEvaluate {
 }
 
 detekt {
-    toolVersion = "$detekt_version"
+    toolVersion = "${detektVersion}"
     def inputDirFiles = []
     rootProject.subprojects.each { module ->
         inputDirFiles << "$module.projectDir/src/main/java"
     }
     source = files(inputDirFiles)
-    config = files("$rootDir/config/detekt/detekt.yml")
+    config = files("$rootDir/tools/config/detekt/detekt.yml")
     autoCorrect = true
 
     reports {
