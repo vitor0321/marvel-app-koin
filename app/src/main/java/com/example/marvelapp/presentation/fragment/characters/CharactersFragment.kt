@@ -2,7 +2,7 @@ package com.example.marvelapp.presentation.fragment.characters
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
+import androidx.annotation.ColorRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +11,7 @@ import androidx.paging.LoadState
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.presentation.fragment.BaseFragment
+import com.example.marvelapp.util.setSystemStatusBarColorOverColorResource
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -80,12 +81,16 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         }
     }
 
-    private fun setUiState(shimmer: Boolean, toolbar: Boolean, menuNav: Boolean, color: Int) {
+    private fun setUiState(
+        shimmer: Boolean,
+        toolbar: Boolean,
+        menuNav: Boolean,
+        @ColorRes color: Int
+    ) {
         setShimmerVisibility(shimmer)
         showToolbar(toolbar)
         showMenuNavigation(menuNav)
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), color)
+        setSystemStatusBarColorOverColorResource(color)
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {
