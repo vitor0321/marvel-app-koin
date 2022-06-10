@@ -12,6 +12,7 @@
     <color name="red_400">#FF5F52</color>
     <color name="red_800">#C62828</color>
     <color name="red_900">#8E0000</color>
+    <color name="black_700">#161616</color>
     <color name="black_900">#212121</color>
     <color name="black_800">#484848</color>
     <color name="medium_grey">#D1D1D1</color>

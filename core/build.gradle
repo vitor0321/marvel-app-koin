@@ -1,0 +1,37 @@
+apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'kotlin'
+
+apply from: "$rootDir/tools/dependencies-versions.gradle"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies{
+
+    // OkHttp
+    api(platform("com.squareup.okhttp3:okhttp-bom:$versions.okhttp"))
+    api("com.squareup.okhttp3:okhttp")
+    api("com.squareup.okhttp3:logging-interceptor")
+
+    // Retrofit
+    api "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    api "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+
+    //Paging3 Common
+    implementation "androidx.paging:paging-common:$versions.paging"
+
+    //Coroutines Core
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+
+    //Javax Inject
+    implementation "javax.inject:javax.inject:$versions.javax"
+
+    //Gson
+    api "com.google.code.gson:gson:$versions.gson"
+
+    //Test
+    testImplementation project(":testing")
+}
