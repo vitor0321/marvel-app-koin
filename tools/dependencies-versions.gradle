@@ -44,6 +44,12 @@ extensions.versions = [
         // Datastore
         datastore           : '1.0.0-rc02',
 
+        // Firebase
+        firebase            : '30.1.0',
+
+        //Google
+        gsm                 : '4.3.10',
+
         //** CORE **
 
         //okhttp3
@@ -63,10 +69,13 @@ extensions.versions = [
         // Tests
         junitExt            : '1.1.2',
         junit               : '4.13.2',
-        espresso            : '3.3.0',
+        espresso            : '3.1.0',
         archCore            : '2.1.0',
         coroutinesTest      : '1.4.2',
-        mockito             : '2.2.0',
+        mockito             : '3.8.0',
+        fragmentTest        : '1.4.1',
+        androidTest         : '1.4.0',
+        mockk               : '1.12.4',
 
         //android sdk
         android             : [
