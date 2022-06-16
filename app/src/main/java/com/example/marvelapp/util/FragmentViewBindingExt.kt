@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-class FragmentViewBindingDelegateExt<VB : ViewBinding>(
+class FragmentViewBindingExt<VB : ViewBinding>(
     val fragment: Fragment,
     val viewBindingFactory: (View) -> VB
 ) : ReadOnlyProperty<Fragment, VB> {
@@ -59,4 +59,4 @@ class FragmentViewBindingDelegateExt<VB : ViewBinding>(
 }
 
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
-    FragmentViewBindingDelegateExt(this, viewBindingFactory)
+    FragmentViewBindingExt(this, viewBindingFactory)
