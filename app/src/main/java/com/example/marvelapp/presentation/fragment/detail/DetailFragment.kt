@@ -33,11 +33,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun initObserve(){
-        viewModel.uiState.observe(viewLifecycleOwner){uiState->
-            when(uiState){
-                is DetailViewModel.UiState.Loading->"loadin commics"
-                is DetailViewModel.UiState.Success-> uiState.comics.toString()
-                is DetailViewModel.UiState.Error-> "Erros when loading commics"
+        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is DetailViewModel.UiState.Loading -> {
+                }
+                is DetailViewModel.UiState.Success ->
+                    binding.recyclerParentDetail.run {
+                        setHasFixedSize(true)
+                        adapter = DetailParentAdapter(uiState.detailParentLis, imageLoader)
+                    }
+                is DetailViewModel.UiState.Error -> {
+
+                }
             }
         }
 
@@ -47,7 +54,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun setViewWithTransition() {
         val detailViewArgs = args.detailViewArg
         binding.imageCharacter.run {
-            imageLoader.load(this, detailViewArgs.imageUrl, R.drawable.ic_img_loading_error)
+            imageLoader.load(this, detailViewArgs.imageUrl)
             transitionName = detailViewArgs.name
         }
         setSharedElementTransitionOnEnter()
@@ -56,6 +63,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun setStyleView() {
         showToolbar(TRUE)
         showMenuNavigation(FALSE)
-        setSystemStatusBarColorOverColorResource(R.color.purple_500)
+        setSystemStatusBarColorOverColorResource(R.color.black)
     }
 }

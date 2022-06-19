@@ -2,10 +2,11 @@ package com.example.marvelapp.framework.di
 
 import com.example.core.data.repository.CharactersRemoteDataSource
 import com.example.core.data.repository.CharactersRepository
+import com.example.core.usecase.GetCategoryUseCase
+import com.example.core.usecase.GetCategoryUseCaseImpl
 import com.example.core.usecase.GetCharactersUseCase
 import com.example.core.usecase.GetCharactersUseCaseImpl
-import com.example.core.usecase.GetComicsUseCase
-import com.example.core.usecase.GetComicsUseCaseImpl
+import com.example.core.usecase.base.AppCoroutinesDispatchers
 import com.example.marvelapp.framework.CharactersRepositoryImpl
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.remote.RetrofitCharactersDataSource
@@ -19,7 +20,12 @@ val useCaseModule = module {
 
     single<GetCharactersUseCase>{GetCharactersUseCaseImpl(get<CharactersRepository>())}
 
-    single<GetComicsUseCase>{ GetComicsUseCaseImpl(get<CharactersRepository>()) }
+    single<GetCategoryUseCase> {
+        GetCategoryUseCaseImpl(
+            get<CharactersRepository>(),
+            get<AppCoroutinesDispatchers>()
+        )
+    }
 }
 
 

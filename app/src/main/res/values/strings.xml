@@ -14,10 +14,13 @@
     <string name="menu_search">Search</string>
     <string name="menu_sort">Sort</string>
 
-    <string name="characters_screen_title">Characters</string>
+    <string name="characters_screen_title">Characters Marvel</string>
     <string name="characters_no_results_found">No results found</string>
 
     <string name="details_comics_category">Comics</string>
+    <string name="details_events_category">Events</string>
+    <string name="details_series_category">Series</string>
+    <string name="details_stories_category">Stories</string>
 
     <string name="favorites_screen_title">Favorites</string>
     <string name="favorites_no_products_in_the_list">No heroes in the favorite list</string>

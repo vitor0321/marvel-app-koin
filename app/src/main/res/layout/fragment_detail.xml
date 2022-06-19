@@ -24,6 +24,8 @@
         android:clipToPadding="false"
         android:padding="16dp"
         android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

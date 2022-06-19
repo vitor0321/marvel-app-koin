@@ -78,11 +78,11 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
             charactersAdapter.loadStateFlow.collectLatest { loadState ->
                 binding.flipperCharacters.displayedChild = when (loadState.refresh) {
                     is LoadState.Loading -> {
-                        setUiState(TRUE, FALSE, FALSE, R.color.white)
+                        setUiState(TRUE, FALSE, FALSE, R.color.black_800)
                         FLIPPER_CHILD_LOADING
                     }
                     is LoadState.NotLoading -> {
-                        setUiState(FALSE, TRUE, TRUE, R.color.purple_500)
+                        setUiState(FALSE, TRUE, TRUE, R.color.black)
                         FLIPPER_CHILD_CHARACTER
                     }
                     is LoadState.Error -> {
