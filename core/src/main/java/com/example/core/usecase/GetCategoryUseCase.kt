@@ -11,24 +11,27 @@ import kotlinx.coroutines.withContext
 
 interface GetCategoryUseCase {
 
-    operator fun invoke(params: GetComicsParams): Flow<ResultStatus<ListCategory>>
+    operator fun invoke(params: GetCategoriesParams): Flow<ResultStatus<ListCategory>>
 
-    data class GetComicsParams(val characterId: Int)
+    data class GetCategoriesParams(val characterId: Int)
 }
 
 class GetCategoryUseCaseImpl(
     private val repository: CharactersRepository,
     private val dispatchers: CoroutinesDispatchers
-) : GetCategoryUseCase, UseCase<GetCategoryUseCase.GetComicsParams, ListCategory>() {
+) : GetCategoryUseCase, UseCase<GetCategoryUseCase.GetCategoriesParams, ListCategory>() {
 
     override suspend fun doWork(
-        params: GetCategoryUseCase.GetComicsParams
+        params: GetCategoryUseCase.GetCategoriesParams
     ): ResultStatus<ListCategory> {
+
         return withContext(dispatchers.io()) {
+
             val comicsDeferred = async { repository.getComics(params.characterId) }
             val eventsDeferred = async { repository.getEvents(params.characterId) }
             val seriesDeferred = async { repository.getSeries(params.characterId) }
             val storyDeferred = async { repository.getStory(params.characterId) }
+
             val comics = comicsDeferred.await()
             val event = eventsDeferred.await()
             val series = seriesDeferred.await()

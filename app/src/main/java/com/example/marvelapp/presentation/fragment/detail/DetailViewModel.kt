@@ -9,7 +9,6 @@ import com.example.core.usecase.GetCategoryUseCase
 import com.example.core.usecase.base.ResultStatus
 import com.example.marvelapp.R
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
@@ -20,7 +19,7 @@ class DetailViewModel(
     val uiState: LiveData<UiState> get() = _uiState
 
     fun getCharactersCategories(characterId: Int) = viewModelScope.launch {
-        getCategoryUseCase(GetCategoryUseCase.GetComicsParams(characterId)).watchStatus()
+        getCategoryUseCase(GetCategoryUseCase.GetCategoriesParams(characterId)).watchStatus()
     }
 
     private fun Flow<ResultStatus<ListCategory>>.watchStatus() = viewModelScope.launch {
