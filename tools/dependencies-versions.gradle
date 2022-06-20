@@ -73,6 +73,7 @@ extensions.versions = [
         archCore            : '2.1.0',
         coroutinesTest      : '1.6.0',
         mockito             : '2.0.0',
+        mockitoAndroid      : '3.8.0',
         fragmentTest        : '1.4.1',
         androidTest         : '1.4.0',
         mockk               : '1.12.4',

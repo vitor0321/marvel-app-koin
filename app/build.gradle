@@ -148,6 +148,6 @@ dependencies {
     androidTestImplementation "androidx.test:core:$versions.androidTest"
     androidTestImplementation "androidx.test:runner:$versions.androidTest"
     androidTestImplementation "androidx.test:rules:$versions.androidTest"
-    androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
+    androidTestImplementation "org.mockito:mockito-android:$versions.mockitoAndroid"
     androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
 }
