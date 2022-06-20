@@ -1,6 +1,8 @@
 package com.example.marvelapp.framework.di
 
 import com.example.marvelapp.BuildConfig
+import com.example.marvelapp.framework.imageloader.GlideImageLoad
+import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.network.interceptor.AuthorizationInterceptor
 import com.example.marvelapp.util.Constants.TIMEOUT_SECONDS
@@ -13,6 +15,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 val networkModule = module {
+    single<ImageLoader> { GlideImageLoad() }
+
     factory { provideLoggingInterceptor() }
     factory { provideOkHttpClient(get<HttpLoggingInterceptor>(), get<AuthorizationInterceptor>()) }
     factory { provideGsonConverterFactory() }

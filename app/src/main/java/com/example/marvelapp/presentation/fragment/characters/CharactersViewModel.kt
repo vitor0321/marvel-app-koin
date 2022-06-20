@@ -14,9 +14,9 @@ class CharactersViewModel(
 ) : ViewModel() {
 
     fun charactersPagingData(query: String): Flow<PagingData<Character>> {
-        return getCharactersUseCase.invoke(
-            GetCharactersUseCase.GetCharactersParams(query, getPageConfig())
-        ).cachedIn(viewModelScope)
+        return getCharactersUseCase
+            .invoke(GetCharactersUseCase.GetCharactersParams(query, getPageConfig()))
+            .cachedIn(viewModelScope)
     }
 
     private fun getPageConfig() = PagingConfig(pageSize = 20)
