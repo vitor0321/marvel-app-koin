@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
-    private val getComicsUseCase: GetCategoryUseCase
+    private val getCategoryUseCase: GetCategoryUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
 
-    fun getComics(characterId: Int) = viewModelScope.launch {
-        getComicsUseCase(GetCategoryUseCase.GetComicsParams(characterId)).watchStatus()
+    fun getCharactersCategories(characterId: Int) = viewModelScope.launch {
+        getCategoryUseCase(GetCategoryUseCase.GetComicsParams(characterId)).watchStatus()
     }
 
     private fun Flow<ResultStatus<ListCategory>>.watchStatus() = viewModelScope.launch {
@@ -44,16 +44,22 @@ class DetailViewModel(
                     if (events.isNotEmpty()) {
                         events.map { DetailChildVE(it.id, it.imageUrl) }
                             .also {
-                                detailParentLis.add(DetailParentVE(R.string.details_events_category, it))
+                                detailParentLis.add(
+                                    DetailParentVE(R.string.details_events_category, it)
+                                )
                             }
                     }
                     if (series.isNotEmpty()) {
                         series.map { DetailChildVE(it.id, it.imageUrl) }
                             .also {
-                                detailParentLis.add(DetailParentVE(R.string.details_series_category, it))
+                                detailParentLis.add(
+                                    DetailParentVE(R.string.details_series_category, it)
+                                )
                             }
                     }
-                    UiState.Success(detailParentLis)
+                    if (detailParentLis.isNotEmpty()) {
+                        UiState.Success(detailParentLis)
+                    } else UiState.Empty
                 }
                 is ResultStatus.Error -> UiState.Error
             }
@@ -64,5 +70,6 @@ class DetailViewModel(
         object Loading : UiState()
         data class Success(val detailParentLis: List<DetailParentVE>) : UiState()
         object Error : UiState()
+        object Empty : UiState()
     }
 }

@@ -88,7 +88,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
                     is LoadState.Error -> {
                         setUiState(FALSE, FALSE, FALSE, R.color.black_700)
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
-                            charactersAdapter.refresh()
+                            charactersAdapter.retry()
                         }
                         FLIPPER_CHILD_ERROR
                     }

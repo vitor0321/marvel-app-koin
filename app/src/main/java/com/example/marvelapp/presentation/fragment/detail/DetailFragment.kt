@@ -34,21 +34,27 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun initObserve(){
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            when (uiState) {
-                is DetailViewModel.UiState.Loading -> {
-                }
-                is DetailViewModel.UiState.Success ->
-                    binding.recyclerParentDetail.run {
-                        setHasFixedSize(true)
-                        adapter = DetailParentAdapter(uiState.detailParentLis, imageLoader)
+            binding.apply {
+                flipperDetail.displayedChild = when (uiState) {
+                    is DetailViewModel.UiState.Loading -> FLIPPER_CHILD_POSITION_LOADING
+                    is DetailViewModel.UiState.Success ->
+                        recyclerParentDetail.run {
+                            setHasFixedSize(true)
+                            adapter = DetailParentAdapter(uiState.detailParentLis, imageLoader)
+                            FLIPPER_CHILD_POSITION_DETAIL
+                        }
+                    is DetailViewModel.UiState.Error ->{
+                        includeErrorView.buttonRetry.setOnClickListener {
+                            viewModel.getCharactersCategories(args.detailViewArg.characterId)
+                        }
+                        FLIPPER_CHILD_POSITION_ERROR
                     }
-                is DetailViewModel.UiState.Error -> {
-
+                    is DetailViewModel.UiState.Empty -> FLIPPER_CHILD_POSITION_EMPTY
                 }
             }
         }
 
-        viewModel.getComics(args.detailViewArg.characterId)
+        viewModel.getCharactersCategories(args.detailViewArg.characterId)
     }
 
     private fun setViewWithTransition() {
@@ -64,5 +70,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         showToolbar(TRUE)
         showMenuNavigation(FALSE)
         setSystemStatusBarColorOverColorResource(R.color.black)
+    }
+
+    companion object {
+        private const val FLIPPER_CHILD_POSITION_LOADING = 0
+        private const val FLIPPER_CHILD_POSITION_DETAIL = 1
+        private const val FLIPPER_CHILD_POSITION_ERROR = 2
+        private const val FLIPPER_CHILD_POSITION_EMPTY = 3
     }
 }
