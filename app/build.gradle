@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.gms.google-services'
 
 apply from: "$rootDir/tools/config/detekt/detekt.gradle"
 apply from: "$rootDir/tools/dependencies-versions.gradle"
@@ -35,7 +36,7 @@ android {
         versionCode versions.android.versionCode
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.marvelapp.KoinTestRunner"
 
         buildConfigField "String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY']
         buildConfigField "String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
@@ -62,17 +63,21 @@ android {
         }
     }
 
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions{
+    kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
-    viewBinding{
+    testOptions {
+        animationsDisabled = true
+    }
+
+    viewBinding {
         enabled = true
     }
 }
@@ -127,9 +132,22 @@ dependencies {
     // Datastore
     implementation "androidx.datastore:datastore-preferences:$versions.datastore"
 
+    //Firebase
+    implementation platform("com.google.firebase:firebase-bom:$versions.firebase")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+
     // Tests
     testImplementation project(":testing")
     testImplementation "androidx.room:room-testing:$versions.room"
-    androidTestImplementation "androidx.test.ext:junit:$versions.junitExt"
+    testImplementation "org.mockito:mockito-core:$versions.mockito"
+    debugImplementation "androidx.fragment:fragment-testing:$versions.fragmentTest"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation "androidx.test.ext:junit:$versions.junitExt"
+    androidTestImplementation "androidx.test:core:$versions.androidTest"
+    androidTestImplementation "androidx.test:runner:$versions.androidTest"
+    androidTestImplementation "androidx.test:rules:$versions.androidTest"
+    androidTestImplementation "org.mockito:mockito-android:$versions.mockitoAndroid"
+    androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
 }

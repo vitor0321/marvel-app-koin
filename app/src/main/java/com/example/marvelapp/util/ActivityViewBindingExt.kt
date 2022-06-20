@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-class ActivityViewBindingDelegateExt<VB : ViewBinding>(
+class ActivityViewBindingExt<VB : ViewBinding>(
     private val activity: AppCompatActivity,
     private val initializer: (LayoutInflater) -> VB
 ) : ReadOnlyProperty<AppCompatActivity, VB>, LifecycleObserver {
@@ -49,4 +49,4 @@ class ActivityViewBindingDelegateExt<VB : ViewBinding>(
 }
 
 fun <T : ViewBinding> AppCompatActivity.viewBinding(viewBindingFactory: (LayoutInflater) -> T) =
-    ActivityViewBindingDelegateExt(this, viewBindingFactory)
+    ActivityViewBindingExt(this, viewBindingFactory)
