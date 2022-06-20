@@ -21,7 +21,7 @@ extensions.versions = [
         lifecycle           : '2.4.0',
 
         //Coroutines
-        coroutines          : "1.5.1",
+        coroutines          : "1.6.0",
 
         //Lottie animation
         lottie              : '4.1.0',
@@ -71,7 +71,7 @@ extensions.versions = [
         junit               : '4.13.2',
         espresso            : '3.1.0',
         archCore            : '2.1.0',
-        coroutinesTest      : '1.4.2',
+        coroutinesTest      : '1.6.0',
         mockito             : '2.0.0',
         fragmentTest        : '1.4.1',
         androidTest         : '1.4.0',

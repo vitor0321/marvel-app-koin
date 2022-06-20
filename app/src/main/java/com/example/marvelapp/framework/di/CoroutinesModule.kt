@@ -1,7 +1,7 @@
 package com.example.marvelapp.framework.di
 
 import com.example.core.usecase.base.AppCoroutinesDispatchers
-import kotlinx.coroutines.Dispatchers
+import com.example.core.usecase.base.CoroutinesDispatchers
 import org.koin.dsl.module
 
 val coroutinesModule = module {
@@ -9,10 +9,4 @@ val coroutinesModule = module {
 
 }
 
-fun provideDispatchers(): AppCoroutinesDispatchers {
-    return AppCoroutinesDispatchers(
-        Dispatchers.IO,
-        Dispatchers.Default,
-        Dispatchers.Main
-    )
-}
+fun provideDispatchers(): CoroutinesDispatchers = AppCoroutinesDispatchers()
