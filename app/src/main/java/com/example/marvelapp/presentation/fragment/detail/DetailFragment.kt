@@ -59,6 +59,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun setAndObserverFavoriteUiState() {
+        viewModel.favorite.checkFavorite(args.detailViewArg.characterId)
         binding.imageFavoriteIcon.setOnClickListener {
             viewModel.favorite.update(args.detailViewArg)
         }

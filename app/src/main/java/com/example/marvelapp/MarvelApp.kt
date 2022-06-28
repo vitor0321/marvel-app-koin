@@ -4,9 +4,9 @@ import android.app.Application
 import com.example.marvelapp.framework.di.coroutinesModule
 import com.example.marvelapp.framework.di.networkModule
 import com.example.marvelapp.framework.di.uiModule
-import com.example.marvelapp.framework.di.characterRepositoryModule
+import com.example.marvelapp.framework.di.useCaseCharacterModule
 import com.example.marvelapp.framework.di.databaseModule
-import com.example.marvelapp.framework.di.favoritesRepositoryModule
+import com.example.marvelapp.framework.di.useCaseFavoritesModule
 import com.example.marvelapp.framework.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -26,10 +26,10 @@ class MarvelApp : Application( ) {
             androidContext(this@MarvelApp)
 
             modules(
-                characterRepositoryModule,
+                useCaseCharacterModule,
                 coroutinesModule,
                 databaseModule,
-                favoritesRepositoryModule,
+                useCaseFavoritesModule,
                 networkModule,
                 uiModule,
                 viewModelModule

@@ -18,6 +18,10 @@ class RoomFavoriteDataSource(
         }
     }
 
+    override suspend fun isFavorite(characterId: Int): Boolean {
+        return favoriteDao.hasFavorite(characterId) != null
+    }
+
     override suspend fun save(character: Character) {
 
         favoriteDao.insertFavorite(character.toFavoriteEntity())

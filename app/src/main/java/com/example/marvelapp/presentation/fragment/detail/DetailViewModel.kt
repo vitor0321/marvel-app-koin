@@ -2,13 +2,17 @@ package com.example.marvelapp.presentation.fragment.detail
 
 import androidx.lifecycle.ViewModel
 import com.example.core.usecase.AddFavoriteUseCase
+import com.example.core.usecase.CheckFavoriteUseCase
 import com.example.core.usecase.GetCategoryUseCase
+import com.example.core.usecase.RemoveFavoriteUseCase
 import com.example.core.usecase.base.CoroutinesDispatchers
 
 class DetailViewModel(
     getCategoryUseCase: GetCategoryUseCase,
+    checkFavoriteUseCase: CheckFavoriteUseCase,
     addFavoriteUseCase: AddFavoriteUseCase,
-    coroutineDispatchers: CoroutinesDispatchers
+    removeFavoriteUseCase: RemoveFavoriteUseCase,
+    coroutineDispatchers: CoroutinesDispatchers,
 ) : ViewModel() {
 
     val categories = CategoriesUiActionStateLiveData(
@@ -18,10 +22,8 @@ class DetailViewModel(
 
     val favorite = FavoriteUiActionStateLiveData(
         coroutineDispatchers.main(),
-        addFavoriteUseCase
+        checkFavoriteUseCase,
+        addFavoriteUseCase,
+        removeFavoriteUseCase
     )
-
-    init {
-        favorite.setDefault()
-    }
 }

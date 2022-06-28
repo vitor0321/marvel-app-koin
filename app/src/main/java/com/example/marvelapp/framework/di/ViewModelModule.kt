@@ -1,8 +1,10 @@
 package com.example.marvelapp.framework.di
 
 import com.example.core.usecase.AddFavoriteUseCase
+import com.example.core.usecase.CheckFavoriteUseCase
 import com.example.core.usecase.GetCategoryUseCase
 import com.example.core.usecase.GetCharactersUseCase
+import com.example.core.usecase.RemoveFavoriteUseCase
 import com.example.core.usecase.base.CoroutinesDispatchers
 import com.example.marvelapp.presentation.fragment.characters.CharactersViewModel
 import com.example.marvelapp.presentation.fragment.detail.DetailViewModel
@@ -20,7 +22,9 @@ val viewModelModule = module {
     viewModel<DetailViewModel> {
         DetailViewModel(
             get<GetCategoryUseCase>(),
+            get<CheckFavoriteUseCase>(),
             get<AddFavoriteUseCase>(),
+            get<RemoveFavoriteUseCase>(),
             get<CoroutinesDispatchers>()
         )
     }

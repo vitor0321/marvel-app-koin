@@ -19,7 +19,7 @@ import com.example.marvelapp.framework.sourceRemote.RetrofitCharactersDataSource
 import com.example.marvelapp.presentation.fragment.favorites.FavoritesFragment
 import org.koin.dsl.module
 
-val characterRepositoryModule = module {
+val useCaseCharacterModule = module {
 
     single<CharactersRemoteDataSource> { RetrofitCharactersDataSource(get<MarvelApi>()) }
 
