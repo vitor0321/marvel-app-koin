@@ -1,8 +1,8 @@
 package com.example.marvelapp.framework
 
 import androidx.paging.PagingSource
-import com.example.core.data.repository.CharactersRemoteDataSource
-import com.example.core.data.repository.CharactersRepository
+import com.example.core.data.repository.characters.CharactersRemoteDataSource
+import com.example.core.data.repository.characters.CharactersRepository
 import com.example.core.domain.model.Character
 import com.example.core.domain.model.Comic
 import com.example.core.domain.model.Event

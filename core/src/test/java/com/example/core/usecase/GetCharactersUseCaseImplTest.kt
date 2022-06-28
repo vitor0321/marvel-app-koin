@@ -1,7 +1,7 @@
 package com.example.core.usecase
 
 import androidx.paging.PagingConfig
-import com.example.core.data.repository.CharactersRepository
+import com.example.core.data.repository.characters.CharactersRepository
 import com.example.testing.MainCoroutinesRule
 import com.example.testing.model.CharactersFactory
 import com.example.testing.pagingSource.PagingSourceFactory
@@ -9,7 +9,6 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotNull
 import org.junit.Before

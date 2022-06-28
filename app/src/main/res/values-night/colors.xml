@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Marvel colors -->
+    <color name="red_400">#FF5F52</color>
+    <color name="red_800">#C62828</color>
+    <color name="red_900">#8E0000</color>
+    <color name="black_700">#161616</color>
+    <color name="black_900">#212121</color>
+    <color name="black_901">#2B2A2A</color>
+    <color name="black_800">#484848</color>
+    <color name="medium_grey">#D1D1D1</color>
+    <color name="checked_chip">#20C62828</color>
+    <color name="unchecked_chip">@color/medium_grey</color>
+    <color name="checked_chip_text">@color/red_800</color>
+    <color name="unchecked_chip_text">@color/black</color>
+
+    <!-- Main Activity -->
+    <color name="activity_toolbar_background">#FF000000</color>
+    <color name="activity_toolbar_text">#FFFFFFFF</color>
+    <color name="activity_toolbar_view">#2B2A2A</color>
+    <color name="activity_toolbar_back_navigation">#FFFFFFFF</color>
+    <color name="activity_background">#FF000000</color>
+
+    <!-- Navigation -->
+    <color name="navigation_bar_background">#2B2A2A</color>
+
+    <!-- Base Fragment -->
+    <color name="default_background_status">#FF000000</color>
+
+    <!-- Status Bar -->
+    <color name="menu_day_night">#FFFFFFFF</color>
+    <color name="detail_background_status">#2B2A2A</color>
+    <color name="character_background_status">#2B2A2A</color>
+    <color name="character_background_status_loading">#484848</color>
+    <color name="character_background_status_error">#161616</color>
+
+    <!-- Character Fragment -->
+    <color name="character_item_background">#FF000000</color>
+    <color name="character_item_text">#FFFFFFFF</color>
+
+    <!-- Detail Fragment -->
+    <color name="detail_favorite_loading">#2196F3</color>
+    <color name="detail_no_result_categories">#FFFFFFFF</color>
+    <color name="detail_categories_text">#FFFFFFFF</color>
+
+</resources>

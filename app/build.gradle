@@ -107,6 +107,9 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
+    //DataStore
+    implementation "androidx.datastore:datastore-preferences:$versions.dataStore"
+
     //Lottie animation
     implementation "com.airbnb.android:lottie:$versions.lottie"
 

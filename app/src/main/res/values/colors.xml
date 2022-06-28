@@ -21,4 +21,34 @@
     <color name="unchecked_chip">@color/medium_grey</color>
     <color name="checked_chip_text">@color/red_800</color>
     <color name="unchecked_chip_text">@color/black</color>
+
+    <!-- Main Activity -->
+    <color name="activity_toolbar_background">#FFFFFFFF</color>
+    <color name="activity_toolbar_text">#161616</color>
+    <color name="activity_toolbar_view">#A1A0A0</color>
+    <color name="activity_toolbar_back_navigation">#FF000000</color>
+    <color name="activity_background">#FFFFFFFF</color>
+
+    <!-- Navigation -->
+    <color name="navigation_bar_background">#A1A0A0</color>
+
+    <!-- Base Fragment -->
+    <color name="default_background_status">#D1D1D1</color>
+
+    <!-- Status Bar -->
+    <color name="menu_day_night">#FF000000</color>
+    <color name="detail_background_status">#D1D1D1</color>
+    <color name="character_background_status">#D1D1D1</color>
+    <color name="character_background_status_loading">#FFFFFFFF</color>
+    <color name="character_background_status_error">#161616</color>
+
+    <!-- Character Fragment -->
+    <color name="character_item_background">#FFFFFFFF</color>
+    <color name="character_item_text">#FF000000</color>
+
+    <!-- Detail Fragment -->
+    <color name="detail_favorite_loading">#ffcc0000</color>
+    <color name="detail_no_result_categories">#FF000000</color>
+    <color name="detail_categories_text">#FF000000</color>
+
 </resources>

@@ -8,7 +8,6 @@ import com.example.marvelapp.databinding.FragmentDetailBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import com.example.marvelapp.util.setSharedElementTransitionOnEnter
-import com.example.marvelapp.util.setSystemStatusBarColorOverColorResource
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Boolean.FALSE
@@ -27,34 +26,56 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObserve()
+        loadCategoriesAndObserverUiState()
+        setAndObserverFavoriteUiState()
         setViewWithTransition()
         setStyleView()
     }
 
-    private fun initObserve(){
-        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+    override fun showActionBarOptionMenu(): Boolean = FALSE
+
+    private fun loadCategoriesAndObserverUiState() {
+        viewModel.categories.load(args.detailViewArg.characterId)
+        viewModel.categories.state.observe(viewLifecycleOwner) { uiState ->
             binding.apply {
                 flipperDetail.displayedChild = when (uiState) {
-                    is DetailViewModel.UiState.Loading -> FLIPPER_CHILD_POSITION_LOADING
-                    is DetailViewModel.UiState.Success ->
+                    CategoriesUiActionStateLiveData.UiState.Loading -> FLIPPER_CHILD_POSITION_LOADING
+                    is CategoriesUiActionStateLiveData.UiState.Success ->
                         recyclerParentDetail.run {
                             setHasFixedSize(true)
                             adapter = DetailParentAdapter(uiState.detailParentLis, imageLoader)
                             FLIPPER_CHILD_POSITION_DETAIL
                         }
-                    is DetailViewModel.UiState.Error ->{
+                    CategoriesUiActionStateLiveData.UiState.Error -> {
                         includeErrorView.buttonRetry.setOnClickListener {
-                            viewModel.getCharactersCategories(args.detailViewArg.characterId)
+                            viewModel.categories.load(args.detailViewArg.characterId)
                         }
                         FLIPPER_CHILD_POSITION_ERROR
                     }
-                    is DetailViewModel.UiState.Empty -> FLIPPER_CHILD_POSITION_EMPTY
+                    CategoriesUiActionStateLiveData.UiState.Empty -> FLIPPER_CHILD_POSITION_EMPTY
                 }
             }
         }
+    }
 
-        viewModel.getCharactersCategories(args.detailViewArg.characterId)
+    private fun setAndObserverFavoriteUiState() {
+        binding.imageFavoriteIcon.setOnClickListener {
+            viewModel.favorite.update(args.detailViewArg)
+        }
+        viewModel.favorite.state.observe(viewLifecycleOwner) { uiState ->
+            binding.flipperFavorite.displayedChild = when (uiState) {
+                FavoriteUiActionStateLiveData.UiState.Loading ->
+                    FLIPPER_CHILD_POSITION_FAVORITE_LOADING
+                is FavoriteUiActionStateLiveData.UiState.Icon -> {
+                    binding.imageFavoriteIcon.setImageResource(uiState.iconSuccess)
+                    FLIPPER_CHILD_POSITION_FAVORITE_SUCCESS
+                }
+                is FavoriteUiActionStateLiveData.UiState.Error -> {
+                    binding.imageFavoriteIcon.setImageResource(uiState.iconError)
+                    FLIPPER_CHILD_POSITION_FAVORITE_ERROR
+                }
+            }
+        }
     }
 
     private fun setViewWithTransition() {
@@ -69,7 +90,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun setStyleView() {
         showToolbar(TRUE)
         showMenuNavigation(FALSE)
-        setSystemStatusBarColorOverColorResource(R.color.black)
+        setColorStatusBarAndNavigation(R.color.detail_background_status)
     }
 
     companion object {
@@ -77,5 +98,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         private const val FLIPPER_CHILD_POSITION_DETAIL = 1
         private const val FLIPPER_CHILD_POSITION_ERROR = 2
         private const val FLIPPER_CHILD_POSITION_EMPTY = 3
+
+        private const val FLIPPER_CHILD_POSITION_FAVORITE_SUCCESS = 0
+        private const val FLIPPER_CHILD_POSITION_FAVORITE_LOADING = 1
+        private const val FLIPPER_CHILD_POSITION_FAVORITE_ERROR = 0
     }
 }

@@ -2,7 +2,7 @@ package com.example.marvelapp.framework.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.core.data.repository.CharactersRemoteDataSource
+import com.example.core.data.repository.characters.CharactersRemoteDataSource
 import com.example.core.domain.model.Character
 
 @Suppress("TooGenericExceptionCaught")

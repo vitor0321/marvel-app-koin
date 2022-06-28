@@ -3,7 +3,7 @@ package com.example.core.usecase
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.core.data.repository.CharactersRepository
+import com.example.core.data.repository.characters.CharactersRepository
 import com.example.core.domain.model.Character
 import com.example.core.usecase.GetCharactersUseCase.GetCharactersParams
 import com.example.core.usecase.base.PagingUseCase

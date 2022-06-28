@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -15,8 +13,6 @@ import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import com.example.marvelapp.presentation.fragment.detail.DetailViewArg
-import com.example.marvelapp.util.setSystemStatusBarColorOverColorResource
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -30,47 +26,58 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         FragmentCharactersBinding.inflate(layoutInflater)
 
     private val viewModel: CharactersViewModel by viewModel()
-    private lateinit var charactersAdapter: CharactersAdapter
+
     private val imageLoader: ImageLoader by inject()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initCharactersAdapter()
-        initObserver()
-        observerInitialLoadState()
-    }
-
-    private fun initCharactersAdapter() {
-        charactersAdapter = CharactersAdapter(imageLoader) { character, view ->
+    private val charactersAdapter: CharactersAdapter by lazy {
+        CharactersAdapter(imageLoader) { character, view ->
             val extras = FragmentNavigatorExtras(
                 view to character.name
             )
             val directions = CharactersFragmentDirections
                 .actionCharactersFragmentToDetailFragment(
                     character.name,
-                    DetailViewArg(character.id,character.name, character.imageUrl)
+                    DetailViewArg(character.id, character.name, character.imageUrl)
                 )
             findNavController().navigate(directions, extras)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initCharactersAdapter()
+        loadCharactersAndObserverUiState()
+        observerInitialLoadState()
+    }
+
+    override fun showActionBarOptionMenu(): Boolean = TRUE
+
+    private fun initCharactersAdapter() {
+        postponeEnterTransition()
         binding.recyclerCharacters.run {
-            scrollToPosition(0)
             setHasFixedSize(true)
             adapter = charactersAdapter.withLoadStateFooter(
                 footer = CharactersLoadStateAdapter(
                     charactersAdapter::retry
                 )
             )
+            viewTreeObserver.addOnDrawListener {
+                startPostponedEnterTransition()
+                TRUE
+            }
         }
     }
 
-    private fun initObserver() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.charactersPagingData("").collect { pagingData ->
-                    charactersAdapter.submitData(pagingData)
+    private fun loadCharactersAndObserverUiState() {
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is CharactersViewModel.UiState.SearchResult -> {
+                    charactersAdapter.submitData(viewLifecycleOwner.lifecycle, uiState.data)
                 }
             }
         }
+        viewModel.searchCharacters()
     }
 
     private fun observerInitialLoadState() {
@@ -78,15 +85,15 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
             charactersAdapter.loadStateFlow.collectLatest { loadState ->
                 binding.flipperCharacters.displayedChild = when (loadState.refresh) {
                     is LoadState.Loading -> {
-                        setUiState(TRUE, FALSE, FALSE, R.color.black_800)
+                        setUiState(TRUE, FALSE, FALSE, R.color.character_background_status_loading)
                         FLIPPER_CHILD_LOADING
                     }
                     is LoadState.NotLoading -> {
-                        setUiState(FALSE, TRUE, TRUE, R.color.black)
+                        setUiState(FALSE, TRUE, TRUE, R.color.character_background_status)
                         FLIPPER_CHILD_CHARACTER
                     }
                     is LoadState.Error -> {
-                        setUiState(FALSE, FALSE, FALSE, R.color.black_700)
+                        setUiState(FALSE, FALSE, FALSE, R.color.character_background_status_error)
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
                             charactersAdapter.retry()
                         }
@@ -106,7 +113,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         setShimmerVisibility(shimmer)
         showToolbar(toolbar)
         showMenuNavigation(menuNav)
-        setSystemStatusBarColorOverColorResource(color)
+        setColorStatusBarAndNavigation(color)
     }
 
     private fun setShimmerVisibility(visibility: Boolean) {
