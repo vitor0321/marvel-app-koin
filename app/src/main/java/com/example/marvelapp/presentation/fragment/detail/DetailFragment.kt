@@ -7,7 +7,7 @@ import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentDetailBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.fragment.BaseFragment
-import com.example.marvelapp.util.setSharedElementTransitionOnEnter
+import com.example.marvelapp.presentation.common.util.setSharedElementTransitionOnEnter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Boolean.FALSE

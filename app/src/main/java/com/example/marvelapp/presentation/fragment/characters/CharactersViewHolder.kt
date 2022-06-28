@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.model.Character
 import com.example.marvelapp.databinding.ItemCharacterBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
-import com.example.marvelapp.util.OnCharacterItemClick
+import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 
 class CharactersViewHolder(
     itemCharactersBinding: ItemCharacterBinding,

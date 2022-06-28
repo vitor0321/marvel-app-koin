@@ -1,4 +1,4 @@
-package com.example.marvelapp.util
+package com.example.marvelapp.presentation.common.util
 
 import com.example.core.usecase.base.ResultStatus
 import kotlinx.coroutines.flow.Flow

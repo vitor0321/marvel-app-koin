@@ -1,4 +1,4 @@
-package com.example.marvelapp.util
+package com.example.marvelapp.presentation.common.util
 
 import android.os.Bundle
 import android.transition.TransitionInflater

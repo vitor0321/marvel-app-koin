@@ -5,7 +5,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.core.domain.model.Character
 import com.example.marvelapp.framework.imageloader.ImageLoader
-import com.example.marvelapp.util.OnCharacterItemClick
+import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 
 class CharactersAdapter(
     private val imageLoader: ImageLoader,

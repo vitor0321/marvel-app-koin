@@ -7,7 +7,7 @@ import com.example.marvelapp.presentation.fragment.characters.CharactersAdapter
 import com.example.marvelapp.presentation.fragment.characters.CharactersFragment
 import com.example.marvelapp.presentation.fragment.detail.DetailFragment
 import com.example.marvelapp.presentation.fragment.favorites.FavoritesFragment
-import com.example.marvelapp.util.OnCharacterItemClick
+import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 import org.koin.dsl.module
 
 val uiModule = module {

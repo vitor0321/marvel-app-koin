@@ -1,4 +1,4 @@
-package com.example.marvelapp.util
+package com.example.marvelapp.presentation.common.extensions
 
 import android.os.Looper
 import android.view.LayoutInflater

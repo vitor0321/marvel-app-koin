@@ -4,10 +4,12 @@ import com.example.core.usecase.AddFavoriteUseCase
 import com.example.core.usecase.CheckFavoriteUseCase
 import com.example.core.usecase.GetCategoryUseCase
 import com.example.core.usecase.GetCharactersUseCase
+import com.example.core.usecase.GetFavoritesUseCase
 import com.example.core.usecase.RemoveFavoriteUseCase
 import com.example.core.usecase.base.CoroutinesDispatchers
 import com.example.marvelapp.presentation.fragment.characters.CharactersViewModel
 import com.example.marvelapp.presentation.fragment.detail.DetailViewModel
+import com.example.marvelapp.presentation.fragment.favorites.FavoritesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -25,6 +27,12 @@ val viewModelModule = module {
             get<CheckFavoriteUseCase>(),
             get<AddFavoriteUseCase>(),
             get<RemoveFavoriteUseCase>(),
+            get<CoroutinesDispatchers>()
+        )
+    }
+    viewModel<FavoritesViewModel> {
+        FavoritesViewModel(
+            get<GetFavoritesUseCase>(),
             get<CoroutinesDispatchers>()
         )
     }

@@ -6,6 +6,8 @@ import com.example.core.usecase.AddFavoriteUseCase
 import com.example.core.usecase.AddFavoriteUseCaseImpl
 import com.example.core.usecase.CheckFavoriteUseCase
 import com.example.core.usecase.CheckFavoriteUseCaseImpl
+import com.example.core.usecase.GetFavoritesUseCase
+import com.example.core.usecase.GetFavoritesUseCaseImpl
 import com.example.core.usecase.RemoveFavoriteUseCase
 import com.example.core.usecase.RemoveFavoriteUseCaseImpl
 import com.example.core.usecase.base.CoroutinesDispatchers
@@ -36,6 +38,13 @@ val useCaseFavoritesModule = module {
 
     single<RemoveFavoriteUseCase> {
         RemoveFavoriteUseCaseImpl(
+            get<FavoritesRepository>(),
+            get<CoroutinesDispatchers>()
+        )
+    }
+
+    single<GetFavoritesUseCase> {
+        GetFavoritesUseCaseImpl(
             get<FavoritesRepository>(),
             get<CoroutinesDispatchers>()
         )

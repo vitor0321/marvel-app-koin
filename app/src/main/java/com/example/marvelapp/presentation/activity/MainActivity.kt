@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
-import com.example.marvelapp.util.viewBinding
+import com.example.marvelapp.presentation.common.extensions.viewBinding
 
 class MainActivity : AppCompatActivity(), ActivityCallback {
 
