@@ -1,4 +1,4 @@
-package com.example.marvelapp.presentation.fragment.characters
+package com.example.marvelapp.presentation.fragment.characters.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

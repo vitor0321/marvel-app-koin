@@ -5,6 +5,11 @@ import androidx.paging.PagingState
 import com.example.core.data.repository.characters.CharactersRemoteDataSource
 import com.example.core.domain.model.Character
 
+/**
+ * PagingSource vai buscar unicamente uma fonte de dados remota,
+ * mas se for necessário buscar uma fonte de dados remota e local como
+ * o Room, então é necessário usar o MediatorSource
+ * **/
 @Suppress("TooGenericExceptionCaught")
 class CharactersPagingSource(
     private val remoteDataSource: CharactersRemoteDataSource,

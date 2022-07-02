@@ -36,7 +36,7 @@ extensions.versions = [
         room                : '2.4.2',
 
         // Paging3
-        paging              : '3.0.1',
+        paging              : '3.1.1',
 
         // Glide
         glide               : '4.12.0',

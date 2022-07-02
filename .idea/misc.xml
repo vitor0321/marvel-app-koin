@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/item_character.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_character_load_more_state.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_character_load_state.xml" value="0.396875" />
+        <entry key="app/src/main/res/layout/item_character_refresh_state.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/item_child_detail.xml" value="0.16" />
         <entry key="app/src/main/res/layout/item_parent_detail.xml" value="0.15" />
         <entry key="app/src/main/res/layout/shimmer_characters_layout.xml" value="0.396875" />

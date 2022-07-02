@@ -12,6 +12,9 @@ import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.fragment.BaseFragment
+import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersAdapter
+import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
+import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersRefreshStateAdapter
 import com.example.marvelapp.presentation.fragment.detail.DetailViewArg
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,6 +31,12 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     private val viewModel: CharactersViewModel by viewModel()
 
     private val imageLoader: ImageLoader by inject()
+
+    private val headerAdapter: CharactersRefreshStateAdapter by lazy {
+        CharactersRefreshStateAdapter(
+            charactersAdapter::retry
+        )
+    }
 
     private val charactersAdapter: CharactersAdapter by lazy {
         CharactersAdapter(imageLoader) { character, view ->
@@ -57,8 +66,9 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         postponeEnterTransition()
         binding.recyclerCharacters.run {
             setHasFixedSize(true)
-            adapter = charactersAdapter.withLoadStateFooter(
-                footer = CharactersLoadStateAdapter(
+            adapter = charactersAdapter.withLoadStateHeaderAndFooter(
+                header = headerAdapter,
+                footer = CharactersLoadMoreStateAdapter(
                     charactersAdapter::retry
                 )
             )
@@ -83,21 +93,34 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     private fun observerInitialLoadState() {
         lifecycleScope.launch {
             charactersAdapter.loadStateFlow.collectLatest { loadState ->
-                binding.flipperCharacters.displayedChild = when (loadState.refresh) {
-                    is LoadState.Loading -> {
+                headerAdapter.loadState =
+                    loadState.mediator
+                        ?.refresh
+                        ?.takeIf {
+                            it is LoadState.Error && charactersAdapter.itemCount > 0
+                        } ?: loadState.prepend
+
+                binding.flipperCharacters.displayedChild = when {
+                    loadState.mediator?.refresh is LoadState.Loading -> {
                         setUiState(TRUE, FALSE, FALSE, R.color.character_background_status_loading)
                         FLIPPER_CHILD_LOADING
                     }
-                    is LoadState.NotLoading -> {
-                        setUiState(FALSE, TRUE, TRUE, R.color.character_background_status)
-                        FLIPPER_CHILD_CHARACTER
-                    }
-                    is LoadState.Error -> {
+                    loadState.mediator?.refresh is LoadState.Error
+                            && charactersAdapter.itemCount == 0 -> {
                         setUiState(FALSE, FALSE, FALSE, R.color.character_background_status_error)
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
                             charactersAdapter.retry()
                         }
                         FLIPPER_CHILD_ERROR
+                    }
+                    loadState.source.refresh is LoadState.NotLoading
+                            || loadState.mediator?.refresh is LoadState.NotLoading -> {
+                        setUiState(FALSE, TRUE, TRUE, R.color.character_background_status)
+                        FLIPPER_CHILD_CHARACTER
+                    }
+                    else -> {
+                        setUiState(FALSE, TRUE, TRUE, R.color.character_background_status)
+                        FLIPPER_CHILD_CHARACTER
                     }
                 }
             }
