@@ -5,7 +5,7 @@ import com.example.marvelapp.framework.imageloader.GlideImageLoad
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.network.interceptor.AuthorizationInterceptor
-import com.example.marvelapp.util.Constants.TIMEOUT_SECONDS
+import com.example.core.data.Constants.TIMEOUT_SECONDS
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module

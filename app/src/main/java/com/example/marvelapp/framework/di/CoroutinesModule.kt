@@ -5,7 +5,7 @@ import com.example.core.usecase.base.CoroutinesDispatchers
 import org.koin.dsl.module
 
 val coroutinesModule = module {
-    single { provideDispatchers() }
+    single<CoroutinesDispatchers> { provideDispatchers() }
 
 }
 
