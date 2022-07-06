@@ -1,6 +1,6 @@
 package com.example.core.usecase
 
-import com.example.core.data.repository.CharactersRepository
+import com.example.core.data.repository.characters.CharactersRepository
 import com.example.core.usecase.base.ResultStatus
 import com.example.testing.MainCoroutinesRule
 import com.example.testing.model.CharactersFactory
@@ -33,7 +33,7 @@ class GetCategoryUseCaseImplTest {
 
     private val character = CharactersFactory().create(CharactersFactory.Hero.ThreeDMan)
     private val comics = listOf(ComicFactory().create(ComicFactory.FakeComic.FakeComic1))
-    private val event = listOf(EventFactory().create(EventFactory.FakeEvent.FakeComic1))
+    private val event = listOf(EventFactory().create(EventFactory.FakeEvent.FakeEvent1))
     private val series = listOf(SeriesFactory().create(SeriesFactory.FakeSeries.FakeSeries1))
     private val stories = listOf(StoriesFactory().create(StoriesFactory.FakeStories.FakeStories1))
 

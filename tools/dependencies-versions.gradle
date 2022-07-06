@@ -23,6 +23,9 @@ extensions.versions = [
         //Coroutines
         coroutines          : "1.6.0",
 
+        //DataStore
+        dataStore           : '1.0.0',
+
         //Lottie animation
         lottie              : '4.1.0',
 
@@ -30,10 +33,10 @@ extensions.versions = [
         koin                : '3.1.2',
 
         // Room
-        room                : '2.3.0',
+        room                : '2.4.2',
 
         // Paging3
-        paging              : '3.0.1',
+        paging              : '3.1.1',
 
         // Glide
         glide               : '4.12.0',
