@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
+@Suppress("UnsafeCallOnNullableType")
 class ActivityViewBindingExt<VB : ViewBinding>(
     private val activity: AppCompatActivity,
     private val initializer: (LayoutInflater) -> VB

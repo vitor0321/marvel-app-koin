@@ -22,6 +22,17 @@
     <color name="checked_chip_text">@color/red_800</color>
     <color name="unchecked_chip_text">@color/black</color>
 
+    <!-- Sort Fragment -->
+    <color name="sort_background">@color/white</color>
+    <color name="sort_text">@color/black</color>
+    <color name="sort_view_flipper_background">@color/black</color>
+    <color name="sort_button_text">@color/white</color>
+    <color name="sort_progress_bar">@color/white</color>
+
+    <!-- Refresh State -->
+    <color name="refresh_background">#D1D1D1</color>
+    <color name="refresh_text">#2B2A2A</color>
+
     <!-- Main Activity -->
     <color name="activity_toolbar_background">#FFFFFFFF</color>
     <color name="activity_toolbar_text">#161616</color>
@@ -36,6 +47,7 @@
     <color name="default_background_status">#D1D1D1</color>
 
     <!-- Status Bar -->
+    <color name="menu_sort">#FF000000</color>
     <color name="menu_day_night">#FF000000</color>
     <color name="detail_background_status">#D1D1D1</color>
     <color name="character_background_status">#D1D1D1</color>

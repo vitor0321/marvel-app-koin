@@ -17,6 +17,7 @@ import com.example.marvelapp.presentation.activity.ActivityCallback
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
+@Suppress("UnsafeCallOnNullableType")
 abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
 
     private var _binding: viewBinding? = null
@@ -29,6 +30,7 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = getViewBinding()
+        setHasOptionsMenu(showActionBarOptionMenu())
         activityCallback = requireActivity() as ActivityCallback
     }
 
@@ -40,10 +42,6 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
         return _binding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(showActionBarOptionMenu())
-    }
 
     protected open fun showActionBarOptionMenu(): Boolean = FALSE
     protected open fun showMenuNavigation(show: Boolean) = activityCallback.showMenuNavigation(show)

@@ -32,8 +32,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         setStyleView()
     }
 
-    override fun showActionBarOptionMenu(): Boolean = FALSE
-
     private fun loadCategoriesAndObserverUiState() {
         viewModel.categories.load(args.detailViewArg.characterId)
         viewModel.categories.state.observe(viewLifecycleOwner) { uiState ->

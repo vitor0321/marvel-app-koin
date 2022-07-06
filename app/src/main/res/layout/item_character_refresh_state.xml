@@ -7,14 +7,14 @@
         android:id="@+id/text_try_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/medium_grey"
+        android:background="@color/refresh_background"
         android:paddingStart="16dp"
         android:paddingTop="24dp"
         android:paddingEnd="16dp"
         android:paddingBottom="24dp"
         android:text="@string/common_offline_try_again"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/refresh_text" />
 
     <ProgressBar
         android:id="@+id/progress_loading_more"

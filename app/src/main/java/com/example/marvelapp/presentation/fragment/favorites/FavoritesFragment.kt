@@ -1,6 +1,8 @@
 package com.example.marvelapp.presentation.fragment.favorites
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentFavoritesBinding
@@ -9,6 +11,7 @@ import com.example.marvelapp.presentation.common.getGenericAdapterOf
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
@@ -56,8 +59,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         }
         viewModel.getAll()
     }
-
-    override fun showActionBarOptionMenu(): Boolean = TRUE
 
     private fun setUiState() {
         showToolbar(TRUE)

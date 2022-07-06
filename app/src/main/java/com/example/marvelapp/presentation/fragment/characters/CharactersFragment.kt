@@ -1,6 +1,9 @@
 package com.example.marvelapp.presentation.fragment.characters
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.view.isVisible
@@ -11,6 +14,7 @@ import androidx.paging.LoadState
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
+import com.example.marvelapp.presentation.common.extensions.navTo
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersAdapter
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
@@ -148,9 +152,71 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.characters_menu_itens, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_sort -> {
+                navTo(R.id.action_charactersFragment_to_sortFragment)
+                true
+            }
+            R.id.menu_day_night -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     companion object {
         private const val FLIPPER_CHILD_LOADING = 0
         private const val FLIPPER_CHILD_CHARACTER = 1
         private const val FLIPPER_CHILD_ERROR = 2
     }
+    //    private val dataStore: DataStore<Preferences> by preferencesDataStore(DAY_NIGHT)
+
+    //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    //        return when (item.itemId) {
+    //            R.id.toolbar_day_night -> {
+    //                when (FALSE) {
+    //                    true -> {
+    //                        saveStyleDayNight(DAY_NIGHT, FALSE)
+    //                        checkStatusDayNight()
+    //                    }
+    //                    false -> {
+    //                        saveStyleDayNight(DAY_NIGHT, TRUE)
+    //                        checkStatusDayNight()
+    //                    }
+    //                }
+    //                true
+    //            }
+    //            else -> super.onOptionsItemSelected(item)
+    //        }
+    //    }
+    //
+    //    private fun checkStatusDayNight() {
+    //        when (getStyleDayNight(DAY_NIGHT)) {
+    //            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    //            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    //        }
+    //    }
+    //
+    //    private fun saveStyleDayNight(key: String, value: Boolean) = lifecycleScope.launch {
+    //        val prefsKey = booleanPreferencesKey(key)
+    //        dataStore.edit { dayNight ->
+    //            dayNight[prefsKey] = value
+    //        }
+    //    }
+    //
+    //    private fun getStyleDayNight(key: String): Boolean {
+    //        var resultDataStore = FALSE
+    //        lifecycleScope.launch {
+    //            val prefsKey = booleanPreferencesKey(key)
+    //            val prefs = dataStore.data.first()
+    //            resultDataStore = prefs[prefsKey] ?: FALSE
+    //        }.isCompleted.apply {
+    //            return resultDataStore
+    //        }
+    //    }
 }

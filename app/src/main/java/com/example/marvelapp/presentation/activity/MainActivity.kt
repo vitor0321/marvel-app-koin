@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        //setSupportActionBar(binding.toolbarApp)
+        setSupportActionBar(binding.toolbarApp)
         setNavigation()
     }
 
@@ -33,9 +34,15 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
         navController = navHostFragment.navController
         binding.bottomNavMain.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.charactersFragment, R.id.favoritesFragment, R.id.aboutFragment)
+            setOf(
+                R.id.charactersFragment,
+                R.id.favoritesFragment,
+                R.id.aboutFragment,
+                R.id.sortFragment
+            )
         )
 
+        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbarApp.setupWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -74,50 +81,4 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
             else -> false
         }
     }
-
-    //    private val dataStore: DataStore<Preferences> by preferencesDataStore(DAY_NIGHT)
-
-    //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    //        return when (item.itemId) {
-    //            R.id.toolbar_day_night -> {
-    //                when (FALSE) {
-    //                    true -> {
-    //                        saveStyleDayNight(DAY_NIGHT, FALSE)
-    //                        checkStatusDayNight()
-    //                    }
-    //                    false -> {
-    //                        saveStyleDayNight(DAY_NIGHT, TRUE)
-    //                        checkStatusDayNight()
-    //                    }
-    //                }
-    //                true
-    //            }
-    //            else -> super.onOptionsItemSelected(item)
-    //        }
-    //    }
-    //
-    //    private fun checkStatusDayNight() {
-    //        when (getStyleDayNight(DAY_NIGHT)) {
-    //            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-    //            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    //        }
-    //    }
-    //
-    //    private fun saveStyleDayNight(key: String, value: Boolean) = lifecycleScope.launch {
-    //        val prefsKey = booleanPreferencesKey(key)
-    //        dataStore.edit { dayNight ->
-    //            dayNight[prefsKey] = value
-    //        }
-    //    }
-    //
-    //    private fun getStyleDayNight(key: String): Boolean {
-    //        var resultDataStore = FALSE
-    //        lifecycleScope.launch {
-    //            val prefsKey = booleanPreferencesKey(key)
-    //            val prefs = dataStore.data.first()
-    //            resultDataStore = prefs[prefsKey] ?: FALSE
-    //        }.isCompleted.apply {
-    //            return resultDataStore
-    //        }
-    //    }
 }

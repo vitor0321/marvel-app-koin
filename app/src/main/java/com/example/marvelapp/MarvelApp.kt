@@ -6,6 +6,7 @@ import com.example.marvelapp.framework.di.networkModule
 import com.example.marvelapp.framework.di.uiModule
 import com.example.marvelapp.framework.di.useCaseCharacterModule
 import com.example.marvelapp.framework.di.databaseModule
+import com.example.marvelapp.framework.di.useCaseDataStore
 import com.example.marvelapp.framework.di.useCaseFavoritesModule
 import com.example.marvelapp.framework.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -26,12 +27,13 @@ class MarvelApp : Application( ) {
             androidContext(this@MarvelApp)
 
             modules(
-                useCaseCharacterModule,
                 coroutinesModule,
                 databaseModule,
-                useCaseFavoritesModule,
                 networkModule,
                 uiModule,
+                useCaseCharacterModule,
+                useCaseDataStore,
+                useCaseFavoritesModule,
                 viewModelModule
             )
         }

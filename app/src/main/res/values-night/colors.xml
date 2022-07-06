@@ -17,10 +17,10 @@
     <color name="black_901">#2B2A2A</color>
     <color name="black_800">#484848</color>
     <color name="medium_grey">#D1D1D1</color>
-    <color name="checked_chip">#20C62828</color>
-    <color name="unchecked_chip">@color/medium_grey</color>
-    <color name="checked_chip_text">@color/red_800</color>
-    <color name="unchecked_chip_text">@color/black</color>
+    <color name="checked_chip">@color/red_800</color>
+    <color name="unchecked_chip">#221F1F</color>
+    <color name="checked_chip_text">#FFFFFFFF</color>
+    <color name="unchecked_chip_text">#8E8D8D</color>
 
     <!-- Main Activity -->
     <color name="activity_toolbar_background">#FF000000</color>
@@ -29,6 +29,17 @@
     <color name="activity_toolbar_back_navigation">#FFFFFFFF</color>
     <color name="activity_background">#FF000000</color>
 
+    <!-- Refresh State -->
+    <color name="refresh_background">#2B2A2A</color>
+    <color name="refresh_text">#D1D1D1</color>
+
+    <!-- Sort Fragment -->
+    <color name="sort_background">@color/black</color>
+    <color name="sort_text">@color/white</color>
+    <color name="sort_view_flipper_background">#FFFFFFFF</color>
+    <color name="sort_button_text">@color/black</color>
+    <color name="sort_progress_bar">@color/black</color>
+
     <!-- Navigation -->
     <color name="navigation_bar_background">#2B2A2A</color>
 
@@ -36,6 +47,7 @@
     <color name="default_background_status">#FF000000</color>
 
     <!-- Status Bar -->
+    <color name="menu_sort">#FFFFFFFF</color>
     <color name="menu_day_night">#FFFFFFFF</color>
     <color name="detail_background_status">#2B2A2A</color>
     <color name="character_background_status">#2B2A2A</color>
