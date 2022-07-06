@@ -1,19 +1,18 @@
 package com.example.marvelapp.presentation.activity
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
-import com.example.marvelapp.util.setSharedElementTransitionOnEnter
-import com.example.marvelapp.util.viewBinding
-import com.google.android.material.navigation.NavigationView
-
+import com.example.marvelapp.presentation.common.extensions.viewBinding
 
 class MainActivity : AppCompatActivity(), ActivityCallback {
 
@@ -25,15 +24,25 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbarApp)
+        setNavigation()
+    }
 
+    private fun setNavigation() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_container) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavMain.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.charactersFragment, R.id.favoritesFragment, R.id.aboutFragment)
+            setOf(
+                R.id.charactersFragment,
+                R.id.favoritesFragment,
+                R.id.aboutFragment,
+                R.id.sortFragment
+            )
         )
 
+        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbarApp.setupWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -51,5 +60,25 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
 
     override fun showToolbar(show: Boolean) {
         binding.toolbarApp.isVisible = show
+    }
+
+    override fun setColorStatusBarAndNavigation(color: Int) {
+        window.statusBarColor = this.getColor(color)
+        window.navigationBarColor = this.getColor(color)
+
+        val statusNightOrDay = isDarkMode()
+        WindowInsetsControllerCompat(window, window.decorView)
+            .isAppearanceLightStatusBars = statusNightOrDay
+        WindowInsetsControllerCompat(window, window.decorView)
+            .isAppearanceLightNavigationBars = statusNightOrDay
+    }
+
+    private fun isDarkMode(): Boolean {
+        return when (this.resources.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            Configuration.UI_MODE_NIGHT_NO -> false
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> false
+            else -> false
+        }
     }
 }
