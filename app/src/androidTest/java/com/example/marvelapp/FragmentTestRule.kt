@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import com.example.marvelapp.presentation.fragment.characters.CharactersFragment
 import org.koin.core.module.Module
 
-abstract class FragmentTestRule<F: Fragment>: ActivityTestRule<FragmentActivity>(FragmentActivity::class.java, true) {
+abstract class FragmentTestRule<F : Fragment> :
+    ActivityTestRule<FragmentActivity>(FragmentActivity::class.java, true) {
     override fun afterActivityLaunched() {
         super.afterActivityLaunched()
         activity.runOnUiThread {
@@ -36,7 +38,8 @@ abstract class FragmentTestRule<F: Fragment>: ActivityTestRule<FragmentActivity>
     }
 }
 
-fun <F: Fragment> createRule(fragment: F, module: Module): FragmentTestRule<F> = object: FragmentTestRule<F>() {
-    override fun createFragment(): F = fragment
-    override fun getModule(): Module = module
-}
+fun <F : Fragment> createRule(fragment: F, module: Module): FragmentTestRule<F> =
+    object : FragmentTestRule<F>() {
+        override fun createFragment(): F = fragment
+        override fun getModule(): Module = module
+    }

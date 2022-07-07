@@ -21,7 +21,7 @@ val networkModule = module {
     factory { provideOkHttpClient(get<HttpLoggingInterceptor>(), get<AuthorizationInterceptor>()) }
     factory { provideGsonConverterFactory() }
     factory { provideAuthorizationInterceptor() }
-    single { provideRetrofit(get<OkHttpClient>(), get<GsonConverterFactory>()) }
+    single { provideRetrofit(get<OkHttpClient>(), get<GsonConverterFactory>(), get<BaseUrl>()) }
 }
 
 fun provideLoggingInterceptor(): HttpLoggingInterceptor {
@@ -61,10 +61,11 @@ fun provideGsonConverterFactory(): GsonConverterFactory {
 
 fun provideRetrofit(
     okHttpClient: OkHttpClient,
-    converterFactory: GsonConverterFactory
+    converterFactory: GsonConverterFactory,
+    baseUrl : BaseUrl
 ): MarvelApi {
     return Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(baseUrl.baseUrl())
         .client(okHttpClient)
         .addConverterFactory(converterFactory)
         .build()
