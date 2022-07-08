@@ -29,4 +29,11 @@ object Constants {
      * DATA STORE
      */
     const val DAY_NIGHT = "day_night"
+
+    /**
+     * Characters Fragment
+     */
+    const val MINIMUM_FETCH_FIREBASE = 60L
+    const val MENU_SORTING_FIREBASE = "show_toolbar_menu_sorting"
+    const val MENU_DARK_LIGHT_FIREBASE = "show_toolbar_menu_dark_light"
 }

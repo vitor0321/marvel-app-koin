@@ -13,10 +13,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
 import com.example.marvelapp.presentation.common.extensions.viewBinding
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), ActivityCallback {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -26,9 +31,13 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarApp)
         setNavigation()
+        firebaseAnalytics = Firebase.analytics
+        Firebase.crashlytics.setCrashlyticsCollectionEnabled(true)
+        Firebase.crashlytics.log("MainActivity - onCreate")
     }
 
     private fun setNavigation() {
+        Firebase.crashlytics.log("MainActivity - setNavigation()")
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_container) as NavHostFragment
         navController = navHostFragment.navController

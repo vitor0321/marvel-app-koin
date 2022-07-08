@@ -42,7 +42,6 @@ abstract class BaseFragment<viewBinding : ViewBinding> : Fragment() {
         return _binding?.root
     }
 
-
     protected open fun showActionBarOptionMenu(): Boolean = FALSE
     protected open fun showMenuNavigation(show: Boolean) = activityCallback.showMenuNavigation(show)
     protected open fun showToolbar(show: Boolean) = activityCallback.showToolbar(show)

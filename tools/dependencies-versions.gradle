@@ -49,6 +49,7 @@ extensions.versions = [
 
         // Firebase
         firebase            : '30.1.0',
+        firebasePlugin      : '2.9.1',
 
         //Google
         gsm                 : '4.3.10',

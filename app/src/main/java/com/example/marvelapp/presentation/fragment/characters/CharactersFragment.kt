@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.core.data.Constants.MENU_DARK_LIGHT_FIREBASE
+import com.example.core.data.Constants.MENU_SORTING_FIREBASE
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
@@ -20,6 +22,10 @@ import com.example.marvelapp.presentation.fragment.characters.adapters.Character
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersRefreshStateAdapter
 import com.example.marvelapp.presentation.fragment.detail.DetailViewArg
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -56,9 +62,11 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         }
     }
 
+    private val remoteConfig: FirebaseRemoteConfig by lazy { Firebase.remoteConfig }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Firebase.crashlytics.log("CharacterFragment - onViewCreated")
         initCharactersAdapter()
         loadCharactersAndObserverUiState()
         observerInitialLoadState()
@@ -66,7 +74,44 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
 
     override fun showActionBarOptionMenu(): Boolean = TRUE
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Firebase.crashlytics.log("CharacterFragment - onCreateOptionsMenu")
+        inflater.inflate(R.menu.characters_menu_itens, menu)
+        menu.findItem(R.id.menu_sort).isVisible = FALSE
+        menu.findItem(R.id.menu_day_night).isVisible = FALSE
+
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    when (remoteConfig.getBoolean(MENU_SORTING_FIREBASE)) {
+                        true -> menu.findItem(R.id.menu_sort).isVisible = TRUE
+                        false -> menu.findItem(R.id.menu_sort).isVisible = FALSE
+                    }
+                    when (remoteConfig.getBoolean(MENU_DARK_LIGHT_FIREBASE)) {
+                        true -> menu.findItem(R.id.menu_day_night).isVisible = TRUE
+                        false -> menu.findItem(R.id.menu_day_night).isVisible = FALSE
+
+                    }
+                }
+            }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Firebase.crashlytics.log("CharacterFragment - onOptionsItemSelected")
+        return when (item.itemId) {
+            R.id.menu_sort -> {
+                navTo(R.id.action_charactersFragment_to_sortFragment)
+                true
+            }
+            R.id.menu_day_night -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initCharactersAdapter() {
+        Firebase.crashlytics.log("CharacterFragment - initCharactersAdapter")
         postponeEnterTransition()
         binding.recyclerCharacters.run {
             setHasFixedSize(true)
@@ -149,23 +194,6 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
             if (visibility) {
                 startShimmer()
             } else stopShimmer()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.characters_menu_itens, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_sort -> {
-                navTo(R.id.action_charactersFragment_to_sortFragment)
-                true
-            }
-            R.id.menu_day_night -> {
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
