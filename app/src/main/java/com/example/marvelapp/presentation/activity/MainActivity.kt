@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
+import com.example.marvelapp.presentation.common.extensions.isDarkMode
 import com.example.marvelapp.presentation.common.extensions.viewBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarApp)
         setNavigation()
+
         firebaseAnalytics = Firebase.analytics
         Firebase.crashlytics.setCrashlyticsCollectionEnabled(true)
         Firebase.crashlytics.log("MainActivity - onCreate")
@@ -80,14 +82,5 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
             .isAppearanceLightStatusBars = statusNightOrDay
         WindowInsetsControllerCompat(window, window.decorView)
             .isAppearanceLightNavigationBars = statusNightOrDay
-    }
-
-    private fun isDarkMode(): Boolean {
-        return when (this.resources.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-            Configuration.UI_MODE_NIGHT_YES -> true
-            Configuration.UI_MODE_NIGHT_NO -> false
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> false
-            else -> false
-        }
     }
 }

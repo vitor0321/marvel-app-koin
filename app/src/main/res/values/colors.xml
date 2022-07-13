@@ -57,6 +57,8 @@
     <!-- Character Fragment -->
     <color name="character_item_background">#FFFFFFFF</color>
     <color name="character_item_text">#FF000000</color>
+    <color name="character_item_text_anim">#F30505</color>
+    <color name="character_item_detail_click">#A8A7A7</color>
 
     <!-- Detail Fragment -->
     <color name="detail_favorite_loading">#ffcc0000</color>

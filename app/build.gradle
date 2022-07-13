@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 apply from: "$rootDir/tools/config/detekt/detekt.gradle"
@@ -143,6 +142,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    implementation "com.google.firebase:firebase-core:$versions.firebaseCore"
 
     // Tests
     testImplementation project(":testing")
@@ -160,3 +160,4 @@ dependencies {
     androidTestImplementation "io.insert-koin:koin-core:3.0.1"
     androidTestImplementation "org.mockito:mockito-android:2.22.0"
 }
+apply plugin: 'com.google.gms.google-services'

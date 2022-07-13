@@ -32,14 +32,28 @@
             android:layout_marginEnd="12dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:fontFamily="@font/ibarra_real_nova"
             android:textColor="@color/character_item_text"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/image_click_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_character"
             tools:text="Spider Man" />
+
+        <ImageView
+            android:id="@+id/image_click_detail"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintStart_toEndOf="@id/text_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_character"
+            tools:src="@tools:sample/avatars"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

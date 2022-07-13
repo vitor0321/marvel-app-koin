@@ -12,6 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_app"
             android:layout_width="match_parent"

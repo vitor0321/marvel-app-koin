@@ -33,7 +33,11 @@ object Constants {
     /**
      * Characters Fragment
      */
-    const val MINIMUM_FETCH_FIREBASE = 60L
     const val MENU_SORTING_FIREBASE = "show_toolbar_menu_sorting"
     const val MENU_DARK_LIGHT_FIREBASE = "show_toolbar_menu_dark_light"
+
+    /**
+     * Extensions
+     */
+    const val DURATION_ANIM = 1000L
 }

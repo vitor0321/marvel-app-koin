@@ -15,8 +15,11 @@ import com.example.core.data.Constants.MENU_DARK_LIGHT_FIREBASE
 import com.example.core.data.Constants.MENU_SORTING_FIREBASE
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
+import com.example.marvelapp.databinding.ItemCharacterBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
+import com.example.marvelapp.presentation.common.extensions.hideSystemBars
 import com.example.marvelapp.presentation.common.extensions.navTo
+import com.example.marvelapp.presentation.common.extensions.showSystemBars
 import com.example.marvelapp.presentation.fragment.BaseFragment
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersAdapter
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
@@ -152,6 +155,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
                 binding.flipperCharacters.displayedChild = when {
                     loadState.mediator?.refresh is LoadState.Loading -> {
                         setUiState(TRUE, FALSE, FALSE, R.color.character_background_status_loading)
+                        requireActivity().hideSystemBars()
                         FLIPPER_CHILD_LOADING
                     }
                     loadState.mediator?.refresh is LoadState.Error
@@ -160,11 +164,13 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
                             charactersAdapter.retry()
                         }
+                        requireActivity().hideSystemBars()
                         FLIPPER_CHILD_ERROR
                     }
                     loadState.source.refresh is LoadState.NotLoading
                             || loadState.mediator?.refresh is LoadState.NotLoading -> {
                         setUiState(FALSE, TRUE, TRUE, R.color.character_background_status)
+                        requireActivity().showSystemBars()
                         FLIPPER_CHILD_CHARACTER
                     }
                     else -> {

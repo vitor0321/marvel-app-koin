@@ -1,14 +1,17 @@
 package com.example.marvelapp.presentation.common.extensions
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import com.example.marvelapp.presentation.fragment.characters.CharactersFragmentDirections
+import com.example.core.data.Constants.DURATION_ANIM
 
 fun Fragment.navTo(@IdRes dest: Int) = findNavController().navigate(dest)
 fun Fragment.navTo(directions: NavDirections) = findNavController().navigate(directions)
@@ -23,4 +26,16 @@ fun Fragment.setSharedElementTransitionOnEnter() {
 
 fun Fragment.toast(msg: String) = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 
-
+fun Fragment.startChameleonCorAnim(view: TextView) {
+    val chameleonCorAnim: ValueAnimator = ObjectAnimator.ofInt(
+        view,
+        "textColor",
+        -0xfa9b01,
+        -0x1000000,
+    )
+    chameleonCorAnim.duration = DURATION_ANIM
+    chameleonCorAnim.setEvaluator(ArgbEvaluator())
+    chameleonCorAnim.repeatCount = ValueAnimator.INFINITE
+    chameleonCorAnim.repeatMode = ValueAnimator.REVERSE
+    chameleonCorAnim.start()
+}

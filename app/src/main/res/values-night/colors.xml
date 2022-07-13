@@ -41,7 +41,7 @@
     <color name="sort_progress_bar">@color/black</color>
 
     <!-- Navigation -->
-    <color name="navigation_bar_background">#2B2A2A</color>
+    <color name="navigation_bar_background">#CD2B2A2A</color>
 
     <!-- Base Fragment -->
     <color name="default_background_status">#FF000000</color>
@@ -57,6 +57,8 @@
     <!-- Character Fragment -->
     <color name="character_item_background">#FF000000</color>
     <color name="character_item_text">#FFFFFFFF</color>
+    <color name="character_item_text_anim">#F30505</color>
+    <color name="character_item_detail_click">#A8A7A7</color>
 
     <!-- Detail Fragment -->
     <color name="detail_favorite_loading">#2196F3</color>
