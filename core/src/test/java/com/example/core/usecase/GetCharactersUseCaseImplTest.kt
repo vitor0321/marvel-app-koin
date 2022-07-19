@@ -3,6 +3,7 @@ package com.example.core.usecase
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.core.data.repository.characters.CharactersRepository
+import com.example.core.data.repository.storage.StorageRepository
 import com.example.core.domain.model.Character
 import com.example.testing.MainCoroutinesRule
 import com.example.testing.model.CharactersFactory
@@ -29,6 +30,9 @@ class GetCharactersUseCaseImplTest {
     @Mock
     lateinit var charactersRepository: CharactersRepository
 
+    @Mock
+    lateinit var storageRepository: StorageRepository
+
     private lateinit var getCharactersUseCase: GetCharactersUseCase
 
     private val hero = CharactersFactory().create(CharactersFactory.Hero.ThreeDMan)
@@ -45,7 +49,7 @@ class GetCharactersUseCaseImplTest {
 
     @Before
     fun setUp() {
-        getCharactersUseCase = GetCharactersUseCaseImpl(charactersRepository)
+        getCharactersUseCase = GetCharactersUseCaseImpl(charactersRepository, storageRepository)
     }
 
     @Test
