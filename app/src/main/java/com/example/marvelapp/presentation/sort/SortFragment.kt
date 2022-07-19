@@ -3,6 +3,7 @@ package com.example.marvelapp.presentation.sort
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.forEach
+import androidx.navigation.fragment.findNavController
 import com.example.core.domain.model.SortingType
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentSortBinding
@@ -63,8 +64,13 @@ class SortFragment : BaseBottomSheetDialogFragment<FragmentSortBinding>() {
                     binding.flipperApply.displayedChild = FLIPPER_CHILD_LOADING
                 is SortViewModel.UiState.ApplyState.Success -> {
                     binding.apply {
-                        buttonApplySort.text = requireContext().getString(R.string.sort_apply)
-                        binding.flipperApply.displayedChild = FLIPPER_CHILD_BUTTON
+                        findNavController().run {
+                            previousBackStackEntry?.savedStateHandle?.set(
+                                SORTING_APPLIED_BASK_STACK_KEY,
+                                true
+                            )
+                            popBackStack()
+                        }
                     }
                 }
                 is SortViewModel.UiState.ApplyState.Error -> {
@@ -72,7 +78,7 @@ class SortFragment : BaseBottomSheetDialogFragment<FragmentSortBinding>() {
                         toast(requireContext().getString(R.string.sort_apply_something_wrong))
                         buttonApplySort.text =
                             requireContext().getString(R.string.sort_apply_try_again)
-                        flipperApply.displayedChild = FLIPPER_CHILD_ERROR
+                        flipperApply.displayedChild = FLIPPER_CHILD_BUTTON
                     }
                 }
             }
@@ -95,6 +101,7 @@ class SortFragment : BaseBottomSheetDialogFragment<FragmentSortBinding>() {
     companion object {
         const val FLIPPER_CHILD_BUTTON = 0
         const val FLIPPER_CHILD_LOADING = 1
-        const val FLIPPER_CHILD_ERROR = 1
+
+        const val SORTING_APPLIED_BASK_STACK_KEY = "sortingAppliedBackStackkey"
     }
 }

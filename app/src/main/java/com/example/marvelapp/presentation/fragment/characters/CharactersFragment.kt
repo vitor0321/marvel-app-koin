@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -15,7 +17,6 @@ import com.example.core.data.Constants.MENU_DARK_LIGHT_FIREBASE
 import com.example.core.data.Constants.MENU_SORTING_FIREBASE
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
-import com.example.marvelapp.databinding.ItemCharacterBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.common.extensions.hideSystemBars
 import com.example.marvelapp.presentation.common.extensions.navTo
@@ -25,6 +26,7 @@ import com.example.marvelapp.presentation.fragment.characters.adapters.Character
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersRefreshStateAdapter
 import com.example.marvelapp.presentation.fragment.detail.DetailViewArg
+import com.example.marvelapp.presentation.sort.SortFragment.Companion.SORTING_APPLIED_BASK_STACK_KEY
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -73,6 +75,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         initCharactersAdapter()
         loadCharactersAndObserverUiState()
         observerInitialLoadState()
+        observerSortingData()
     }
 
     override fun showActionBarOptionMenu(): Boolean = TRUE
@@ -180,6 +183,24 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
                 }
             }
         }
+    }
+
+    private fun observerSortingData() {
+        val navBackStackEntry = findNavController().getBackStackEntry(R.id.charactersFragment)
+        val observer = LifecycleEventObserver { _, event ->
+            val isSortingApplied =
+                navBackStackEntry.savedStateHandle.contains(SORTING_APPLIED_BASK_STACK_KEY)
+            if (event == Lifecycle.Event.ON_RESUME && isSortingApplied) {
+                viewModel.applySort()
+                navBackStackEntry.savedStateHandle.remove<Boolean>(SORTING_APPLIED_BASK_STACK_KEY)
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
     }
 
     private fun setUiState(

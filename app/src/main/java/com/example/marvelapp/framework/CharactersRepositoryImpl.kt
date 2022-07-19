@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
 import androidx.paging.map
 import com.example.core.data.repository.characters.CharactersRemoteDataSource
 import com.example.core.data.repository.characters.CharactersRepository
@@ -14,7 +13,6 @@ import com.example.core.domain.model.Event
 import com.example.core.domain.model.Series
 import com.example.core.domain.model.Story
 import com.example.marvelapp.framework.db.AppDatabase
-import com.example.marvelapp.framework.paging.CharactersPagingSource
 import com.example.marvelapp.framework.paging.CharactersRemoteMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -31,11 +29,12 @@ class CharactersRepositoryImpl(
 
     override fun getCachedCharacters(
         query: String,
+        orderBy: String,
         pagingConfig: PagingConfig
     ): Flow<PagingData<Character>> {
         return Pager(
             config = pagingConfig,
-            remoteMediator = CharactersRemoteMediator(query, database, remoteDataSource)
+            remoteMediator = CharactersRemoteMediator(query, orderBy, database, remoteDataSource)
         ) {
             database.characterDao().pagingSource()
         }.flow.map { pagingData ->
