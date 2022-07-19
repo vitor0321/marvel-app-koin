@@ -1,12 +1,7 @@
 package com.example.marvelapp.presentation.fragment.characters.adapters
 
-import android.graphics.ColorFilter
-import android.graphics.LightingColorFilter
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.model.Character
 import com.example.marvelapp.R
