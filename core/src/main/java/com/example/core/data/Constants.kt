@@ -33,6 +33,7 @@ object Constants {
     /**
      * Characters Fragment
      */
+    const val MENU_SEARCH_FIREBASE = "show_toolbar_menu_search"
     const val MENU_SORTING_FIREBASE = "show_toolbar_menu_sorting"
     const val MENU_DARK_LIGHT_FIREBASE = "show_toolbar_menu_dark_light"
 

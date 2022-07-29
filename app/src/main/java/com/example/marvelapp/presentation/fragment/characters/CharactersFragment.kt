@@ -1,11 +1,13 @@
 package com.example.marvelapp.presentation.fragment.characters
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.ColorRes
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.core.data.Constants.MENU_DARK_LIGHT_FIREBASE
+import com.example.core.data.Constants.MENU_SEARCH_FIREBASE
 import com.example.core.data.Constants.MENU_SORTING_FIREBASE
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
@@ -38,7 +41,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
 
-class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
+class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
+    SearchView.OnQueryTextListener,
+    MenuItem.OnActionExpandListener {
 
     override fun getViewBinding(): FragmentCharactersBinding =
         FragmentCharactersBinding.inflate(layoutInflater)
@@ -46,6 +51,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
     private val viewModel: CharactersViewModel by viewModel()
 
     private val imageLoader: ImageLoader by inject()
+    private lateinit var searchView: SearchView
 
     private val headerAdapter: CharactersRefreshStateAdapter by lazy {
         CharactersRefreshStateAdapter(
@@ -76,44 +82,6 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         loadCharactersAndObserverUiState()
         observerInitialLoadState()
         observerSortingData()
-    }
-
-    override fun showActionBarOptionMenu(): Boolean = TRUE
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        Firebase.crashlytics.log("CharacterFragment - onCreateOptionsMenu")
-        inflater.inflate(R.menu.characters_menu_itens, menu)
-        menu.findItem(R.id.menu_sort).isVisible = FALSE
-        menu.findItem(R.id.menu_day_night).isVisible = FALSE
-
-        remoteConfig.fetchAndActivate()
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    when (remoteConfig.getBoolean(MENU_SORTING_FIREBASE)) {
-                        true -> menu.findItem(R.id.menu_sort).isVisible = TRUE
-                        false -> menu.findItem(R.id.menu_sort).isVisible = FALSE
-                    }
-                    when (remoteConfig.getBoolean(MENU_DARK_LIGHT_FIREBASE)) {
-                        true -> menu.findItem(R.id.menu_day_night).isVisible = TRUE
-                        false -> menu.findItem(R.id.menu_day_night).isVisible = FALSE
-
-                    }
-                }
-            }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Firebase.crashlytics.log("CharacterFragment - onOptionsItemSelected")
-        return when (item.itemId) {
-            R.id.menu_sort -> {
-                navTo(R.id.action_charactersFragment_to_sortFragment)
-                true
-            }
-            R.id.menu_day_night -> {
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun initCharactersAdapter() {
@@ -224,11 +192,97 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>() {
         }
     }
 
+    override fun showActionBarOptionMenu(): Boolean = TRUE
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Firebase.crashlytics.log("CharacterFragment - onCreateOptionsMenu")
+        inflater.inflate(R.menu.characters_menu_itens, menu)
+        val searchItem = menu.findItem(R.id.menu_search)
+        searchItem.isVisible = FALSE
+        menu.findItem(R.id.menu_sort).isVisible = FALSE
+        menu.findItem(R.id.menu_day_night).isVisible = FALSE
+
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    when (remoteConfig.getBoolean(MENU_SEARCH_FIREBASE)) {
+                        true -> menu.findItem(R.id.menu_search).isVisible = TRUE
+                        false -> menu.findItem(R.id.menu_search).isVisible = FALSE
+                    }
+                    when (remoteConfig.getBoolean(MENU_SORTING_FIREBASE)) {
+                        true -> menu.findItem(R.id.menu_sort).isVisible = TRUE
+                        false -> menu.findItem(R.id.menu_sort).isVisible = FALSE
+                    }
+                    when (remoteConfig.getBoolean(MENU_DARK_LIGHT_FIREBASE)) {
+                        true -> menu.findItem(R.id.menu_day_night).isVisible = TRUE
+                        false -> menu.findItem(R.id.menu_day_night).isVisible = FALSE
+
+                    }
+                }
+            }
+
+        searchView = searchItem.actionView as SearchView
+        searchItem.setOnActionExpandListener(this)
+
+        if (viewModel.currentSearchQuery.isNotEmpty()) {
+            searchItem.expandActionView()
+            searchView.setQuery(viewModel.currentSearchQuery, false)
+        }
+
+        searchView.apply {
+            isSubmitButtonEnabled = true
+            setOnQueryTextListener(this@CharactersFragment)
+        }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return query?.let {
+            viewModel.currentSearchQuery = it
+            viewModel.searchCharacters()
+            true
+        } ?: false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return false
+    }
+
+    override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+        return true
+    }
+
+    override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+        viewModel.closeSearch()
+        viewModel.searchCharacters()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Firebase.crashlytics.log("CharacterFragment - onOptionsItemSelected")
+        return when (item.itemId) {
+            R.id.menu_sort -> {
+                navTo(R.id.action_charactersFragment_to_sortFragment)
+                true
+            }
+            R.id.menu_day_night -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onDestroy() {
+        searchView.setOnTouchListener(null)
+        super.onDestroy()
+    }
+
     companion object {
         private const val FLIPPER_CHILD_LOADING = 0
         private const val FLIPPER_CHILD_CHARACTER = 1
         private const val FLIPPER_CHILD_ERROR = 2
     }
+
     //    private val dataStore: DataStore<Preferences> by preferencesDataStore(DAY_NIGHT)
 
     //    override fun onOptionsItemSelected(item: MenuItem): Boolean {

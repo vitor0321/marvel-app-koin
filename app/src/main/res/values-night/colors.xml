@@ -47,6 +47,7 @@
     <color name="default_background_status">#FF000000</color>
 
     <!-- Status Bar -->
+    <color name="menu_search">#FFFFFFFF</color>
     <color name="menu_sort">#FFFFFFFF</color>
     <color name="menu_day_night">#FFFFFFFF</color>
     <color name="detail_background_status">#2B2A2A</color>
