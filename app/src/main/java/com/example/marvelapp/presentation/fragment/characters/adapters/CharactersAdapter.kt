@@ -1,39 +1,31 @@
 package com.example.marvelapp.presentation.fragment.characters.adapters
 
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.core.domain.model.Character
+import com.example.marvelapp.R
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 
-sealed class ViewItem {
-
-    data class CharactersStart(
-        val character: Character,
-    ) : ViewItem()
-
-    data class CharactersMiddle(
-        val character: Character,
-    ) : ViewItem()
-
-    data class CharactersEnd(
-        val character: Character,
-    ) : ViewItem()
-}
 class CharactersAdapter(
     private val imageLoader: ImageLoader,
     private val onItemClick: OnCharacterItemClick
-) : PagingDataAdapter<Character, CharactersMiddleViewHolder>(diffCallback) {
+) : PagingDataAdapter<Character, CharactersViewHolder>(diffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersMiddleViewHolder {
-        return CharactersMiddleViewHolder.create(parent, imageLoader, onItemClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
+        return CharactersViewHolder.create(parent, imageLoader, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: CharactersMiddleViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+    override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
+        val start = R.drawable.marvel_character_start
+        val middle = R.drawable.marvel_character_middle
+        val end = R.drawable.marvel_character_end
+        when {
+            position == 0 -> getItem(position)?.let { holder.bind(it, start) }
+            position > 0 -> getItem(position)?.let { holder.bind(it, middle) }
+            position == itemCount -1 -> getItem(position)?.let { holder.bind(it, end) }
+        }
     }
 
     companion object {

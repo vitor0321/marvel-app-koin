@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/card_character"
         app:layout_constraintBottom_toBottomOf="@id/card_character"
-        android:background="@drawable/marvel_character_end"
+        tools:background="@drawable/marvel_character_middle"
         android:scaleType="fitXY" />
 
     <com.google.android.material.card.MaterialCardView
