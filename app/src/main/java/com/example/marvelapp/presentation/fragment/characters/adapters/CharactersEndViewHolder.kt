@@ -5,27 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.model.Character
 import com.example.marvelapp.R
-import com.example.marvelapp.databinding.ItemCharacterBinding
+import com.example.marvelapp.databinding.ItemCharacterEndBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.common.extensions.animationInfinitely
 import com.example.marvelapp.presentation.common.extensions.startChameleonCorAnim
 import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 
-class CharactersViewHolder(
-    itemCharactersBinding: ItemCharacterBinding,
+class CharactersEndViewHolder(
+    itemCharactersEndBinding: ItemCharacterEndBinding,
     private val imageLoader: ImageLoader,
     private val onItemClick: OnCharacterItemClick
-) : RecyclerView.ViewHolder(itemCharactersBinding.root) {
+) : RecyclerView.ViewHolder(itemCharactersEndBinding.root) {
 
-    private val textName = itemCharactersBinding.textName
-    private val imageCharacter = itemCharactersBinding.imageCharacter
-    private val imageClickDetail = itemCharactersBinding.imageClickDetail
+    private val textName = itemCharactersEndBinding.textName
+    private val imageCharacter = itemCharactersEndBinding.imageCharacter
+    private val imageClickDetail = itemCharactersEndBinding.imageClickDetail
     fun bind(character: Character) {
         textName.text = character.name
         imageCharacter.transitionName = character.name
         imageClickDetail.setImageResource(R.drawable.ic_detail_click)
         startChameleonCorAnim(textName)
-        animationInfinitely(imageClickDetail,R.color.character_item_detail_click)
+        animationInfinitely(imageClickDetail, R.color.character_item_detail_click)
         imageLoader.load(imageCharacter, character.imageUrl)
 
         itemView.setOnClickListener {
@@ -38,10 +38,10 @@ class CharactersViewHolder(
             parent: ViewGroup,
             imageLoader: ImageLoader,
             onItemClick: OnCharacterItemClick
-        ): CharactersViewHolder {
+        ): CharactersEndViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val itemBinding = ItemCharacterBinding.inflate(inflater, parent, false)
-            return CharactersViewHolder(itemBinding, imageLoader, onItemClick)
+            val itemBinding = ItemCharacterEndBinding.inflate(inflater, parent, false)
+            return CharactersEndViewHolder(itemBinding, imageLoader, onItemClick)
         }
     }
 }

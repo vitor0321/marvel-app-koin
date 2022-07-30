@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_character"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    app:layout_constraintDimensionRatio="H,1:0.6">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,9 +17,10 @@
         <ImageView
             android:id="@+id/image_character"
             android:layout_width="0dp"
-            android:layout_height="170dp"
+            android:layout_height="0dp"
             android:importantForAccessibility="no"
             android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="H,1:0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,29 +33,28 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="12dp"
             android:ellipsize="end"
-            android:maxLines="1"
             android:fontFamily="@font/ibarra_real_nova"
+            android:maxLines="1"
             android:textColor="@color/character_item_text"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image_click_detail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_character"
             tools:text="Spider Man" />
 
         <ImageView
             android:id="@+id/image_click_detail"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="?attr/selectableItemBackground"
-            app:layout_constraintStart_toEndOf="@id/text_name"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_character"
-            tools:src="@tools:sample/avatars"
-            />
+            tools:src="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
+
