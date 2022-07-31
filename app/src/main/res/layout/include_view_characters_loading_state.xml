@@ -22,11 +22,9 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/medium_grey"/>
 
-        <include layout="@layout/shimmer_layout_character_item" />
-        <include layout="@layout/shimmer_layout_character_item"/>
-        <include layout="@layout/shimmer_layout_character_item"/>
-        <include layout="@layout/shimmer_layout_character_item"/>
+        <include layout="@layout/shimmer_layout_start_character_item" />
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
     </LinearLayout>
-
-
 </com.facebook.shimmer.ShimmerFrameLayout>
