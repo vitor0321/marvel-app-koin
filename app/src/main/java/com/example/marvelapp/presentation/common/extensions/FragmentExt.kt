@@ -3,14 +3,22 @@ package com.example.marvelapp.presentation.common.extensions
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import androidx.core.content.ContextCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.core.data.Constants
 import com.example.core.data.Constants.DURATION_ANIM
 
 fun Fragment.navTo(@IdRes dest: Int) = findNavController().navigate(dest)
@@ -39,3 +47,8 @@ fun Fragment.startChameleonCorAnim(view: TextView) {
     chameleonCorAnim.repeatMode = ValueAnimator.REVERSE
     chameleonCorAnim.start()
 }
+
+fun Fragment.getDrawable(@DrawableRes id: Int): Drawable? {
+    return ContextCompat.getDrawable(requireContext(), id)
+}
+

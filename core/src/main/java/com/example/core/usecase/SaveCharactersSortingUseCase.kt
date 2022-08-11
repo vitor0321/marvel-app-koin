@@ -1,6 +1,5 @@
 package com.example.core.usecase
 
-import com.example.core.data.mapper.SortingMapper
 import com.example.core.data.mapper.SortingMapperUseCase
 import com.example.core.data.repository.storage.StorageRepository
 import com.example.core.usecase.base.CoroutinesDispatchers

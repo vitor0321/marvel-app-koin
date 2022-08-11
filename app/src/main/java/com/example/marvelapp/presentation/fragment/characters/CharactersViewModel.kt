@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
@@ -23,18 +22,19 @@ class CharactersViewModel(
 
     var currentSearchQuery = ""
 
-    private val action = MutableLiveData<Action>()
-    val state: LiveData<UiState> = action
-        .switchMap { action ->
-            when (action) {
-                is Action.Search, Action.Sort -> {
+    private val actionCharacters = MutableLiveData<ActionCharacters>()
+
+    val stateCharacters: LiveData<UiStateCharacters> = actionCharacters
+        .switchMap { actionCharacters ->
+            when (actionCharacters) {
+                is ActionCharacters.Search, ActionCharacters.Sort -> {
                     getCharactersUseCase.invoke(
                         GetCharactersUseCase.GetCharactersParams(
                             currentSearchQuery,
                             getPageConfig()
                         )
                     ).cachedIn(viewModelScope).map {
-                        UiState.SearchResult(it)
+                        UiStateCharacters.SearchResult(it)
                     }.asLiveData(coroutineDispatchers.main())
                 }
             }
@@ -49,11 +49,11 @@ class CharactersViewModel(
     private fun getPageConfig() = PagingConfig(pageSize = 20)
 
     fun searchCharacters() {
-        action.value = Action.Search
+        actionCharacters.value = ActionCharacters.Search
     }
 
-    fun applySort(){
-        action.value = Action.Sort
+    fun applySort() {
+        actionCharacters.value = ActionCharacters.Sort
     }
 
     fun closeSearch() {
@@ -62,12 +62,18 @@ class CharactersViewModel(
         }
     }
 
-    sealed class UiState {
-        data class SearchResult(val data: PagingData<Character>) : UiState()
+    sealed class UiStateCharacters {
+        data class SearchResult(val data: PagingData<Character>) : UiStateCharacters()
+
+        sealed class ApplyState : UiStateCharacters() {
+            object Loading : ApplyState()
+            object Success : ApplyState()
+            object Error : ApplyState()
+        }
     }
 
-    sealed class Action {
-        object Search : Action()
-        object Sort : Action()
+    sealed class ActionCharacters {
+        object Search : ActionCharacters()
+        object Sort : ActionCharacters()
     }
 }

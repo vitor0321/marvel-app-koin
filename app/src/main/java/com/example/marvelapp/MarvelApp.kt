@@ -3,10 +3,10 @@ package com.example.marvelapp
 import android.app.Application
 import com.example.marvelapp.framework.di.baseUrlModule
 import com.example.marvelapp.framework.di.coroutinesModule
+import com.example.marvelapp.framework.di.databaseModule
 import com.example.marvelapp.framework.di.networkModule
 import com.example.marvelapp.framework.di.uiModule
 import com.example.marvelapp.framework.di.useCaseCharacterModule
-import com.example.marvelapp.framework.di.databaseModule
 import com.example.marvelapp.framework.di.useCaseDataStore
 import com.example.marvelapp.framework.di.useCaseFavoritesModule
 import com.example.marvelapp.framework.di.viewModelModule

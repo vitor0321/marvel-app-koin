@@ -1,6 +1,5 @@
 package com.example.marvelapp.presentation.activity
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsControllerCompat
@@ -49,7 +48,8 @@ class MainActivity : AppCompatActivity(), ActivityCallback {
                 R.id.charactersFragment,
                 R.id.favoritesFragment,
                 R.id.aboutFragment,
-                R.id.sortFragment
+                R.id.sortFragment,
+                R.id.introFragment
             )
         )
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
     android:label="@string/characters_screen_title"
-    app:startDestination="@id/charactersFragment">
+    app:startDestination="@id/introFragment">
 
     <fragment
         android:id="@+id/charactersFragment"
@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_charactersFragment_to_sortFragment"
             app:destination="@id/sortFragment" />
+        <action
+            android:id="@+id/action_charactersFragment_to_introFragment"
+            app:destination="@id/introFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -33,6 +36,14 @@
     </fragment>
     <dialog
         android:id="@+id/sortFragment"
-        android:name="com.example.marvelapp.presentation.sort.SortFragment"
+        android:name="com.example.marvelapp.presentation.fragment.sort.SortFragment"
         tools:layout="@layout/fragment_sort" />
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.example.marvelapp.presentation.fragment.intro.IntroFragment"
+        tools:layout="@layout/fragment_intro" >
+        <action
+            android:id="@+id/action_introFragment_to_charactersFragment"
+            app:destination="@id/charactersFragment" />
+    </fragment>
 </navigation>

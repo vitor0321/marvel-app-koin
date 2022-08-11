@@ -7,4 +7,8 @@ interface StorageLocalDataSource {
     val sorting: Flow<String>
 
     suspend fun saveSorting(sorting: String)
+
+    val intro: Flow<Boolean>
+
+    suspend fun saveIntro(slides: Boolean)
 }

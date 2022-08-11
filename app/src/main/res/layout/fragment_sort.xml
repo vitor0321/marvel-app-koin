@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/sort_background"
     android:padding="16dp"
-    tools:context=".presentation.sort.SortFragment">
+    tools:context=".presentation.fragment.sort.SortFragment">
 
     <TextView
         android:id="@+id/text_order_by_title"

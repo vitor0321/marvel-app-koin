@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/drawable/ic_neutral.xml" value="0.102" />
         <entry key="app/src/main/res/drawable/ic_no_favorites.xml" value="0.105" />
         <entry key="app/src/main/res/drawable/ic_sort.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/indicator_unselected.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/marvel_chip_background_color.xml" value="0.115" />
         <entry key="app/src/main/res/drawable/marvel_chip_text_color.xml" value="0.115" />
         <entry key="app/src/main/res/drawable/seletor.xml" value="0.159" />
@@ -27,23 +28,31 @@
         <entry key="app/src/main/res/layout/fragment_characters.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_favorites.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/fragment_intro.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_sort.xml" value="0.25" />
         <entry key="app/src/main/res/layout/include_error_view_state.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/include_view_characters_erro_state.xml" value="0.12487335359675786" />
         <entry key="app/src/main/res/layout/include_view_characters_error_state.xml" value="0.2" />
         <entry key="app/src/main/res/layout/include_view_characters_loading_state.xml" value="0.25" />
         <entry key="app/src/main/res/layout/include_view_detail_loading_state.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/intro_slide.xml" value="0.11481481481481481" />
         <entry key="app/src/main/res/layout/item_character.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_character_end.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/item_character_favorites.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/item_character_load_more_state.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_character_load_state.xml" value="0.396875" />
         <entry key="app/src/main/res/layout/item_character_middle.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/item_character_refresh_state.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/item_child_detail.xml" value="0.16" />
+        <entry key="app/src/main/res/layout/item_intro_slide.xml" value="0.11481481481481481" />
+        <entry key="app/src/main/res/layout/item_onboarding.xml" value="0.15" />
         <entry key="app/src/main/res/layout/item_parent_detail.xml" value="0.15" />
         <entry key="app/src/main/res/layout/shimmer_characters_layout.xml" value="0.396875" />
         <entry key="app/src/main/res/layout/shimmer_layout_category_item.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/shimmer_layout_character_item.xml" value="0.2641025641025641" />
+        <entry key="app/src/main/res/layout/shimmer_layout_middle_character_item.xml" value="0.10833333333333334" />
+        <entry key="app/src/main/res/layout/shimmer_layout_start_character_item.xml" value="0.5" />
         <entry key="app/src/main/res/menu/app_menu_items.xml" value="0.22" />
         <entry key="app/src/main/res/menu/characters_menu_itens.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/menu/menu_toolbar.xml" value="0.1537037037037037" />

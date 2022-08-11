@@ -29,7 +29,7 @@ import com.example.marvelapp.presentation.fragment.characters.adapters.Character
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersLoadMoreStateAdapter
 import com.example.marvelapp.presentation.fragment.characters.adapters.CharactersRefreshStateAdapter
 import com.example.marvelapp.presentation.fragment.detail.DetailViewArg
-import com.example.marvelapp.presentation.sort.SortFragment.Companion.SORTING_APPLIED_BASK_STACK_KEY
+import com.example.marvelapp.presentation.fragment.sort.SortFragment.Companion.SORTING_APPLIED_BASK_STACK_KEY
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -78,8 +78,8 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Firebase.crashlytics.log("CharacterFragment - onViewCreated")
-        initCharactersAdapter()
         loadCharactersAndObserverUiState()
+        initCharactersAdapter()
         observerInitialLoadState()
         observerSortingData()
     }
@@ -103,11 +103,12 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
     }
 
     private fun loadCharactersAndObserverUiState() {
-        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+        viewModel.stateCharacters.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
-                is CharactersViewModel.UiState.SearchResult -> {
+                is CharactersViewModel.UiStateCharacters.SearchResult -> {
                     charactersAdapter.submitData(viewLifecycleOwner.lifecycle, uiState.data)
                 }
+                else -> {}
             }
         }
         viewModel.searchCharacters()
@@ -194,9 +195,8 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
 
     override fun showActionBarOptionMenu(): Boolean = TRUE
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        Firebase.crashlytics.log("CharacterFragment - onCreateOptionsMenu")
-        inflater.inflate(R.menu.characters_menu_itens, menu)
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
         val searchItem = menu.findItem(R.id.menu_search)
         searchItem.isVisible = FALSE
         menu.findItem(R.id.menu_sort).isVisible = FALSE
@@ -216,11 +216,9 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
                     when (remoteConfig.getBoolean(MENU_DARK_LIGHT_FIREBASE)) {
                         true -> menu.findItem(R.id.menu_day_night).isVisible = TRUE
                         false -> menu.findItem(R.id.menu_day_night).isVisible = FALSE
-
                     }
                 }
             }
-
         searchView = searchItem.actionView as SearchView
         searchItem.setOnActionExpandListener(this)
 
@@ -233,6 +231,11 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
             isSubmitButtonEnabled = true
             setOnQueryTextListener(this@CharactersFragment)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Firebase.crashlytics.log("CharacterFragment - onCreateOptionsMenu")
+        inflater.inflate(R.menu.characters_menu_itens, menu)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -282,50 +285,4 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding>(),
         private const val FLIPPER_CHILD_CHARACTER = 1
         private const val FLIPPER_CHILD_ERROR = 2
     }
-
-    //    private val dataStore: DataStore<Preferences> by preferencesDataStore(DAY_NIGHT)
-
-    //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    //        return when (item.itemId) {
-    //            R.id.toolbar_day_night -> {
-    //                when (FALSE) {
-    //                    true -> {
-    //                        saveStyleDayNight(DAY_NIGHT, FALSE)
-    //                        checkStatusDayNight()
-    //                    }
-    //                    false -> {
-    //                        saveStyleDayNight(DAY_NIGHT, TRUE)
-    //                        checkStatusDayNight()
-    //                    }
-    //                }
-    //                true
-    //            }
-    //            else -> super.onOptionsItemSelected(item)
-    //        }
-    //    }
-    //
-    //    private fun checkStatusDayNight() {
-    //        when (getStyleDayNight(DAY_NIGHT)) {
-    //            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-    //            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-    //        }
-    //    }
-    //
-    //    private fun saveStyleDayNight(key: String, value: Boolean) = lifecycleScope.launch {
-    //        val prefsKey = booleanPreferencesKey(key)
-    //        dataStore.edit { dayNight ->
-    //            dayNight[prefsKey] = value
-    //        }
-    //    }
-    //
-    //    private fun getStyleDayNight(key: String): Boolean {
-    //        var resultDataStore = FALSE
-    //        lifecycleScope.launch {
-    //            val prefsKey = booleanPreferencesKey(key)
-    //            val prefs = dataStore.data.first()
-    //            resultDataStore = prefs[prefsKey] ?: FALSE
-    //        }.isCompleted.apply {
-    //            return resultDataStore
-    //        }
-    //    }
 }

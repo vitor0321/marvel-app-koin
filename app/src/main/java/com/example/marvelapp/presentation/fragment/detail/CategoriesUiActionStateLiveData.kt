@@ -6,7 +6,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.example.core.usecase.GetCategoryUseCase
 import com.example.marvelapp.R
-import com.example.marvelapp.presentation.common.util.watchStatus
+import com.example.marvelapp.presentation.common.extensions.watchStatus
 import kotlin.coroutines.CoroutineContext
 
 class CategoriesUiActionStateLiveData(

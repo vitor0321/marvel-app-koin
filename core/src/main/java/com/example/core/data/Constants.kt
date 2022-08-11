@@ -25,10 +25,6 @@ object Constants {
     const val REMOTE_KEYS_TABLE_NAME = "remote_keys"
     const val REMOTE_KEYS_COLUMN_INFO_OFFSET = "next_offset"
 
-    /**
-     * DATA STORE
-     */
-    const val DAY_NIGHT = "day_night"
 
     /**
      * Characters Fragment

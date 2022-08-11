@@ -1,4 +1,4 @@
-package com.example.marvelapp.presentation.sort
+package com.example.marvelapp.presentation.fragment.sort
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import androidx.lifecycle.switchMap
 import com.example.core.usecase.GetCharactersSortingUseCase
 import com.example.core.usecase.SaveCharactersSortingUseCase
 import com.example.core.usecase.base.CoroutinesDispatchers
-import com.example.marvelapp.presentation.common.util.watchStatus
+import com.example.marvelapp.presentation.common.extensions.watchStatus
 
 class SortViewModel(
     private val getCharactersSortingUseCase: GetCharactersSortingUseCase,
@@ -17,18 +17,19 @@ class SortViewModel(
 ) : ViewModel() {
 
     private val action = MutableLiveData<Action>()
-    val state: LiveData<UiState> = action.switchMap { action ->
-        liveData(coroutinesDispatchers.main()) {
-            when (action) {
-                Action.GetStoreSorting -> {
-                    getCharactersSortingUseCase.invoke()
-                        .collect { sortingPair ->
-                            emit(UiState.SortingResult(sortingPair))
-                        }
-                }
-                is Action.ApplySorting -> {
-                    val orderBy = action.orderBy
-                    val order = action.order
+    val state: LiveData<UiState> = action
+        .switchMap { action ->
+            liveData(coroutinesDispatchers.main()) {
+                when (action) {
+                    Action.GetStoreSorting -> {
+                        getCharactersSortingUseCase.invoke()
+                            .collect { sortingPair ->
+                                emit(UiState.SortingResult(sortingPair))
+                            }
+                    }
+                    is Action.ApplySorting -> {
+                        val orderBy = action.orderBy
+                        val order = action.order
 
                     saveCharactersSortingUseCase.invoke(
                         SaveCharactersSortingUseCase.Params(orderBy to order)
