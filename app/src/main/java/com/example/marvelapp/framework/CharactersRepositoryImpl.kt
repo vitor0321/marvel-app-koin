@@ -23,10 +23,6 @@ class CharactersRepositoryImpl(
     private val database: AppDatabase
 ): CharactersRepository {
 
-//    override fun getCharacters(query: String): PagingSource<Int, Character> {
-//        return CharactersPagingSource(remoteDataSource, query)
-//    }
-
     override fun getCachedCharacters(
         query: String,
         orderBy: String,
