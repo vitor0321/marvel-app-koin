@@ -17,7 +17,7 @@
         android:id="@+id/recycler_characters"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_character" />
+        tools:listitem="@layout/item_character_favorites" />
 
     <include
         android:id="@+id/include_view_characters_error_state"

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/sort_background"
     android:padding="16dp"
-    tools:context=".presentation.sort.SortFragment">
+    tools:context=".presentation.fragment.sort.SortFragment">
 
     <TextView
         android:id="@+id/text_order_by_title"
@@ -87,17 +87,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/sort_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chip_group_order">
 
         <com.google.android.material.button.MaterialButton
+            style="?materialButtonOutlinedStyle"
             android:id="@+id/button_apply_sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sort_apply"
-            android:textColor="@color/sort_button_text"
             android:textStyle="bold" />
 
         <ProgressBar
@@ -106,7 +105,6 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/sort_button_text"
             android:indeterminateTintMode="src_atop" />
     </ViewFlipper>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 apply from: "$rootDir/tools/config/detekt/detekt.gradle"
 apply from: "$rootDir/tools/dependencies-versions.gradle"
@@ -139,12 +139,16 @@ dependencies {
     //Firebase
     implementation platform("com.google.firebase:firebase-bom:$versions.firebase")
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    implementation "com.google.firebase:firebase-core:$versions.firebaseCore"
 
     // Tests
     testImplementation project(":testing")
     testImplementation "androidx.room:room-testing:$versions.room"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
+    debugImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
     debugImplementation "androidx.fragment:fragment-testing:$versions.fragmentTest"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
@@ -152,6 +156,8 @@ dependencies {
     androidTestImplementation "androidx.test:core:$versions.androidTest"
     androidTestImplementation "androidx.test:runner:$versions.androidTest"
     androidTestImplementation "androidx.test:rules:$versions.androidTest"
-    androidTestImplementation "org.mockito:mockito-android:$versions.mockitoAndroid"
     androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
+    androidTestImplementation "io.insert-koin:koin-core:3.0.1"
+    androidTestImplementation "org.mockito:mockito-android:2.22.0"
 }
+apply plugin: 'com.google.gms.google-services'

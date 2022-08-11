@@ -1,4 +1,4 @@
-package com.example.marvelapp.presentation.sort
+package com.example.marvelapp.presentation.fragment.sort
 
 import android.os.Bundle
 import android.view.LayoutInflater

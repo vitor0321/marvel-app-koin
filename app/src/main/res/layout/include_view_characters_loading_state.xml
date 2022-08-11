@@ -12,17 +12,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_app"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/medium_grey"/>
 
-        <include layout="@layout/shimmer_layout_character_item" />
-        <include layout="@layout/shimmer_layout_character_item"/>
-        <include layout="@layout/shimmer_layout_character_item"/>
-        <include layout="@layout/shimmer_layout_character_item"/>
+        <include layout="@layout/shimmer_layout_start_character_item" />
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
+        <include layout="@layout/shimmer_layout_middle_character_item"/>
     </LinearLayout>
-
-
 </com.facebook.shimmer.ShimmerFrameLayout>
