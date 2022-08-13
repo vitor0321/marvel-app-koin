@@ -29,13 +29,14 @@
     <string name="favorites_no_favorites_in_the_list">No heroes in the favorite list</string>
 
     <!-- Intro -->
-    <string name="intro_screen_title">Intro</string>
-    <string name="intro_order_title">ordination</string>
-    <string name="intro_order_description">you can sort the characters</string>
-    <string name="intro_favorites_title">favorites</string>
-    <string name="intro_favorites_description">you can choose favorites</string>
-    <string name="intro_details_title">details</string>
     <string name="intro_details_description">see character details</string>
+    <string name="intro_order_description">you can sort the characters</string>
+    <string name="intro_favorites_description">you can choose favorites</string>
+    <string name="intro_favorites_title">favorites</string>
+    <string name="intro_order_title">ordination</string>
+    <string name="intro_details_title">details</string>
+    <string name="let_go">let\'s go</string>
+    <string name="skip">skip</string>
 
     <!-- Ordering -->
     <string name="sort_order_by">Order by</string>

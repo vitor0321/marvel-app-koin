@@ -6,9 +6,11 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.transition.TransitionInflater
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
@@ -51,4 +53,3 @@ fun Fragment.startChameleonCorAnim(view: TextView) {
 fun Fragment.getDrawable(@DrawableRes id: Int): Drawable? {
     return ContextCompat.getDrawable(requireContext(), id)
 }
-

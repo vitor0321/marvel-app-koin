@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.get
-import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentIntroBinding
@@ -98,8 +97,8 @@ class IntroFragment : BaseFragment<FragmentIntroBinding>() {
                 super.onPageSelected(position)
                 setCurrentIndicator(indicators, position)
                 if (introSlideAdapter.itemCount - 1 == position) {
-                    binding.introGo.text = "let's go"
-                } else binding.introGo.text = "skip"
+                    binding.introGo.text = context?.getString(R.string.let_go)
+                } else binding.introGo.text = context?.getString(R.string.skip)
             }
         })
     }

@@ -12,28 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
+        <include
+            android:id="@+id/include_view_characters_loading_state"
+            layout="@layout/include_view_characters_loading_state" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/intro_go"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@color/transparent"
-                android:elevation="4dp"
-                android:stateListAnimator="@null"
-                android:textAllCaps="false"
-                android:textColor="@color/red_900"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                android:translationZ="4dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="skip" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/intro_slide_viewpager"
@@ -54,6 +39,23 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/intro_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@color/transparent"
+                android:elevation="4dp"
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="@color/red_900"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:translationZ="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="skip" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ViewFlipper>

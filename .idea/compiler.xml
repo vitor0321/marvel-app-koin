@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="curso-android-marvel-app.app" target="11" />
+      <module name="curso-android-marvel-app.buildSrc" target="11" />
+      <module name="curso-android-marvel-app.buildSrc.main" target="11" />
+      <module name="curso-android-marvel-app.buildSrc.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
