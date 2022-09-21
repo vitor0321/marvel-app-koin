@@ -16,7 +16,7 @@ def storeKeyProperties = new Properties()
 storeKeyProperties.load(new FileInputStream(storeKeyPropertiesFile))
 
 android {
-    compileSdkVersion VersionsBuild.compileSdk
+    compileSdkVersion 31
     buildToolsVersion VersionsBuild.buildTools
 
     signingConfigs {
