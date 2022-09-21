@@ -1,6 +1,2 @@
-# CAMP - Curso Android Moderno e Profissional
 
-Este repositório é referente ao CAMP - Curso sobre Desenvolvimento Android Moderno e Profissional que visa capacitar os devs Android que querem dar o próximo passo na carreira profissional.
-
-Se tiver interesse e quiser conhecer mais sobre o CAMP:
-https://bit.ly/3sHLdNE
+![Marvel_Logo svg](https://user-images.githubusercontent.com/60984009/179862850-3fb22959-277f-45c6-aa20-5068edb8ca54.png)
