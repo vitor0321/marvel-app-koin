@@ -11,7 +11,7 @@ import com.example.core.usecase.AddFavoriteUseCase
 import com.example.core.usecase.CheckFavoriteUseCase
 import com.example.core.usecase.RemoveFavoriteUseCase
 import com.example.marvelapp.R
-import com.example.marvelapp.presentation.common.util.watchStatus
+import com.example.marvelapp.presentation.common.extensions.watchStatus
 import kotlin.coroutines.CoroutineContext
 
 class FavoriteUiActionStateLiveData(

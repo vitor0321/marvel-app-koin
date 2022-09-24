@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.core.domain.model.Character
+import com.example.marvelapp.R
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.common.util.OnCharacterItemClick
 
@@ -17,7 +18,14 @@ class CharactersAdapter(
     }
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        val start = R.drawable.marvel_character_start
+        val middle = R.drawable.marvel_character_middle
+        val end = R.drawable.marvel_character_end
+        when {
+            position == 0 -> getItem(position)?.let { holder.bind(it, start) }
+            position > 0 -> getItem(position)?.let { holder.bind(it, middle) }
+            position == itemCount -1 -> getItem(position)?.let { holder.bind(it, end) }
+        }
     }
 
     companion object {

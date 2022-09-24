@@ -1,16 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    apply from: "$rootDir/tools/dependencies-versions.gradle"
-
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.build"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
-        classpath "com.google.gms:google-services:$versions.gsm"
+        classpath AppVersions.build
+        classpath AppVersions.kotlin
+        classpath AppVersions.navPlugin
+        classpath AppVersions.gsm
+        classpath AppVersions.firebasePlugin
+        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 

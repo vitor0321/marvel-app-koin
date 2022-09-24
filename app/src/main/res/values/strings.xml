@@ -24,8 +24,19 @@
     <string name="details_series_category">Series</string>
     <string name="details_stories_category">Stories</string>
 
+
     <string name="favorites_screen_title">Favorites</string>
     <string name="favorites_no_favorites_in_the_list">No heroes in the favorite list</string>
+
+    <!-- Intro -->
+    <string name="intro_details_description">see character details</string>
+    <string name="intro_order_description">you can sort the characters</string>
+    <string name="intro_favorites_description">you can choose favorites</string>
+    <string name="intro_favorites_title">favorites</string>
+    <string name="intro_order_title">ordination</string>
+    <string name="intro_details_title">details</string>
+    <string name="let_go">let\'s go</string>
+    <string name="skip">skip</string>
 
     <!-- Ordering -->
     <string name="sort_order_by">Order by</string>
@@ -41,5 +52,7 @@
     <!-- About -->
     <string name="about_screen_title">About</string>
     <string name="about_attribution">Data provided by Marvel. © 2021 Marvel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

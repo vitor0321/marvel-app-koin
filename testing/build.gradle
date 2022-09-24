@@ -1,22 +1,20 @@
 apply plugin: 'java-library'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
-apply from: "$rootDir/tools/dependencies-versions.gradle"
-
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies{
     api project(":core")
 
     //Paging3 Common
-    implementation "androidx.paging:paging-common:$versions.paging"
+    implementation CoreVersions.pagingCore
 
     // Unit tests
-    api "junit:junit:$versions.junit"
-    api "androidx.arch.core:core-testing:$versions.archCore"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesTest"
-    api "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockito"
+    api TestVersions.junitTest
+    api TestVersions.coreTesting
+    api TestVersions.coroutinesTest
+    api TestVersions.mockitoKotlin
 }

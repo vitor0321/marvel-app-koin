@@ -7,4 +7,5 @@ object StorageConstants {
     const val ORDER_BY_MODIFIED_ASCENDING = "modified"
     const val ORDER_BY_MODIFIED_DESCENDING = "-modified"
     const val SORT_ORDER_BY_KEY = "sort_order_by_key"
+    const val SLIDE_INTRO = "slide_intro"
 }
