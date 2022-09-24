@@ -3,10 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 apply from: "$rootDir/tools/config/detekt/detekt.gradle"
-apply from: "$rootDir/tools/dependencies-versions.gradle"
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
@@ -17,8 +16,8 @@ def storeKeyProperties = new Properties()
 storeKeyProperties.load(new FileInputStream(storeKeyPropertiesFile))
 
 android {
-    compileSdkVersion versions.android.compieSdk
-    buildToolsVersion "30.0.3"
+    compileSdkVersion VersionsBuild.compileSdk
+    buildToolsVersion VersionsBuild.buildTools
 
     signingConfigs {
         release {
@@ -30,13 +29,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.marvelapp"
-        minSdkVersion versions.android.minSdk
-        targetSdkVersion versions.android.targetSdk
-        versionCode versions.android.versionCode
-        versionName "1.0"
+        applicationId VersionsBuild.applicationId
+        minSdkVersion VersionsBuild.minSdk
+        targetSdkVersion VersionsBuild.targetSdk
+        versionCode VersionsBuild.versionCode
+        versionName VersionsBuild.versionName
 
-        testInstrumentationRunner "com.example.marvelapp.KoinTestRunner"
+        testInstrumentationRunner VersionsTest.marvelTest
 
         buildConfigField "String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY']
         buildConfigField "String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY']
@@ -64,12 +63,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_11
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
@@ -86,72 +85,75 @@ dependencies {
     implementation project(':core')
 
     // AndroidX
-    implementation "androidx.core:core-ktx:$versions.core"
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation AppVersions.core
+    implementation AppVersions.appcompat
+    implementation AppVersions.constraint
 
     // Material design
-    implementation "com.google.android.material:material:$versions.material"
-    implementation "androidx.legacy:legacy-support-v4:$versions.legacy"
+    implementation AppVersions.material
+    implementation AppVersions.legacy
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation AppVersions.navFragment
+    implementation AppVersions.navUi
 
     // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+    implementation AppVersions.lifecycleCommon
+    implementation AppVersions.lifecycleViewModel
+    implementation AppVersions.lifecycleLivedata
+    implementation AppVersions.lifecycleRuntime
 
     //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation AppVersions.coroutines
 
     //DataStore
-    implementation "androidx.datastore:datastore-preferences:$versions.dataStore"
+    implementation AppVersions.dataStore
 
     //Lottie animation
-    implementation "com.airbnb.android:lottie:$versions.lottie"
+    implementation AppVersions.lottie
 
     // Koin
-    implementation "io.insert-koin:koin-core:$versions.koin"
-    implementation "io.insert-koin:koin-android:$versions.koin"
+    implementation AppVersions.koinCore
+    implementation AppVersions.koinAndroid
 
     // Room
-    implementation "androidx.room:room-ktx:$versions.room"
-    implementation "androidx.room:room-runtime:$versions.room"
-    implementation "androidx.room:room-paging:$versions.room"
-    kapt "androidx.room:room-compiler:$versions.room"
+    implementation AppVersions.roomKtx
+    implementation AppVersions.roomRunTime
+    implementation AppVersions.roomPaging
+    kapt AppVersions.roomCompiler
 
     // Paging3
-    implementation "androidx.paging:paging-runtime-ktx:$versions.paging"
+    implementation AppVersions.paging
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:$versions.glide"
-    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+    implementation AppVersions.glide
+    kapt AppVersions.glideCompiler
 
     // Shimmer
-    implementation "com.facebook.shimmer:shimmer:$versions.shimmer"
-
-    // Datastore
-    implementation "androidx.datastore:datastore-preferences:$versions.datastore"
+    implementation AppVersions.shimmer
 
     //Firebase
-    implementation platform("com.google.firebase:firebase-bom:$versions.firebase")
+    implementation platform("com.google.firebase:firebase-bom:${VersionsApp.firebase}")
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
+    implementation "com.google.firebase:firebase-config-ktx"
+    implementation "com.google.firebase:firebase-inappmessaging-display-ktx"
+    implementation "com.google.firebase:firebase-core"
 
     // Tests
     testImplementation project(":testing")
-    testImplementation "androidx.room:room-testing:$versions.room"
-    testImplementation "org.mockito:mockito-core:$versions.mockito"
-    debugImplementation "androidx.fragment:fragment-testing:$versions.fragmentTest"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
-    androidTestImplementation "androidx.test.ext:junit:$versions.junitExt"
-    androidTestImplementation "androidx.test:core:$versions.androidTest"
-    androidTestImplementation "androidx.test:runner:$versions.androidTest"
-    androidTestImplementation "androidx.test:rules:$versions.androidTest"
-    androidTestImplementation "org.mockito:mockito-android:$versions.mockitoAndroid"
-    androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
+    testImplementation TestVersions.roomTest
+    testImplementation TestVersions.mockitoCore
+    debugImplementation TestVersions.mockWeb
+    debugImplementation TestVersions.fragmentTest
+    androidTestImplementation TestVersions.espressoContrib
+    androidTestImplementation TestVersions.espressoCore
+    androidTestImplementation TestVersions.junit
+    androidTestImplementation TestVersions.testCore
+    androidTestImplementation TestVersions.testRunner
+    androidTestImplementation TestVersions.testRules
+    androidTestImplementation TestVersions.mock
+    androidTestImplementation TestVersions.koinTest
+    androidTestImplementation TestVersions.mockitoAndroid
 }
+apply plugin: 'com.google.gms.google-services'

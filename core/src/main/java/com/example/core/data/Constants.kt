@@ -25,8 +25,16 @@ object Constants {
     const val REMOTE_KEYS_TABLE_NAME = "remote_keys"
     const val REMOTE_KEYS_COLUMN_INFO_OFFSET = "next_offset"
 
+
     /**
-     * DATA STORE
+     * Characters Fragment
      */
-    const val DAY_NIGHT = "day_night"
+    const val MENU_SEARCH_FIREBASE = "show_toolbar_menu_search"
+    const val MENU_SORTING_FIREBASE = "show_toolbar_menu_sorting"
+    const val MENU_DARK_LIGHT_FIREBASE = "show_toolbar_menu_dark_light"
+
+    /**
+     * Extensions
+     */
+    const val DURATION_ANIM = 1000L
 }

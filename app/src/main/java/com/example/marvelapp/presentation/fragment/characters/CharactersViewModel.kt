@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
@@ -21,19 +20,21 @@ class CharactersViewModel(
     private val coroutineDispatchers: CoroutinesDispatchers
 ) : ViewModel() {
 
-    private val action = MutableLiveData<Action>()
-    val state: LiveData<UiState> = action
-        .distinctUntilChanged()
-        .switchMap { action ->
-            when (action) {
-                is Action.Search -> {
+    var currentSearchQuery = ""
+
+    private val actionCharacters = MutableLiveData<ActionCharacters>()
+
+    val stateCharacters: LiveData<UiStateCharacters> = actionCharacters
+        .switchMap { actionCharacters ->
+            when (actionCharacters) {
+                is ActionCharacters.Search, ActionCharacters.Sort -> {
                     getCharactersUseCase.invoke(
                         GetCharactersUseCase.GetCharactersParams(
-                            action.query,
+                            currentSearchQuery,
                             getPageConfig()
                         )
                     ).cachedIn(viewModelScope).map {
-                        UiState.SearchResult(it)
+                        UiStateCharacters.SearchResult(it)
                     }.asLiveData(coroutineDispatchers.main())
                 }
             }
@@ -47,15 +48,32 @@ class CharactersViewModel(
 
     private fun getPageConfig() = PagingConfig(pageSize = 20)
 
-    fun searchCharacters(query: String = "") {
-        action.value = Action.Search(query)
+    fun searchCharacters() {
+        actionCharacters.value = ActionCharacters.Search
     }
 
-    sealed class UiState {
-        data class SearchResult(val data: PagingData<Character>) : UiState()
+    fun applySort() {
+        actionCharacters.value = ActionCharacters.Sort
     }
 
-    sealed class Action {
-        data class Search(val query: String) : Action()
+    fun closeSearch() {
+        if (currentSearchQuery.isNotEmpty()) {
+            currentSearchQuery = ""
+        }
+    }
+
+    sealed class UiStateCharacters {
+        data class SearchResult(val data: PagingData<Character>) : UiStateCharacters()
+
+        sealed class ApplyState : UiStateCharacters() {
+            object Loading : ApplyState()
+            object Success : ApplyState()
+            object Error : ApplyState()
+        }
+    }
+
+    sealed class ActionCharacters {
+        object Search : ActionCharacters()
+        object Sort : ActionCharacters()
     }
 }

@@ -3,6 +3,7 @@ package com.example.marvelapp.framework.di
 import android.content.Context
 import com.example.core.data.repository.characters.CharactersRemoteDataSource
 import com.example.core.data.repository.characters.CharactersRepository
+import com.example.core.data.repository.storage.StorageRepository
 import com.example.core.usecase.GetCategoryUseCase
 import com.example.core.usecase.GetCategoryUseCaseImpl
 import com.example.core.usecase.GetCharactersUseCase
@@ -24,7 +25,12 @@ val useCaseCharacterModule = module {
         )
     }
 
-    single<GetCharactersUseCase>{GetCharactersUseCaseImpl(get<CharactersRepository>())}
+    single<GetCharactersUseCase> {
+        GetCharactersUseCaseImpl(
+            get<CharactersRepository>(),
+            get<StorageRepository>()
+        )
+    }
 
     single<GetCategoryUseCase> {
         GetCategoryUseCaseImpl(

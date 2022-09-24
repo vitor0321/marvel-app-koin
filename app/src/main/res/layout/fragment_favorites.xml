@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_character" />
+        tools:listitem="@layout/item_character_favorites" />
 
     <TextView
         android:layout_width="wrap_content"
