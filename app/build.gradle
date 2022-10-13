@@ -17,7 +17,6 @@ storeKeyProperties.load(new FileInputStream(storeKeyPropertiesFile))
 
 android {
     compileSdkVersion VersionsBuild.compileSdk
-    buildToolsVersion VersionsBuild.buildTools
 
     signingConfigs {
         release {
@@ -79,6 +78,7 @@ android {
     viewBinding {
         enabled = true
     }
+    namespace 'com.example.marvelapp'
 }
 
 dependencies {
@@ -133,12 +133,12 @@ dependencies {
     implementation AppVersions.shimmer
 
     //Firebase
-    implementation platform("com.google.firebase:firebase-bom:${VersionsApp.firebase}")
+    implementation platform("com.google.firebase:firebase-bom:31.0.0")
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation "com.google.firebase:firebase-config-ktx"
     implementation "com.google.firebase:firebase-inappmessaging-display-ktx"
-    implementation "com.google.firebase:firebase-core"
+    implementation AppVersions.firebaseCore
 
     // Tests
     testImplementation project(":testing")

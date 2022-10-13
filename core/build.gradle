@@ -10,7 +10,7 @@ java {
 dependencies{
 
     // OkHttp
-    api platform("com.squareup.okhttp3:okhttp-bom:4.9.0")
+    api platform('com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.10')
     api CoreVersions.okhttp
     api CoreVersions.okhttpLogging
 

@@ -10,7 +10,6 @@ buildscript {
         classpath AppVersions.navPlugin
         classpath AppVersions.gsm
         classpath AppVersions.firebasePlugin
-        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 

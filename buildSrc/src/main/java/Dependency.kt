@@ -1,12 +1,11 @@
 object VersionsBuild {
     const val applicationId = "com.example.marvelapp"
     const val versionName = "1.0"
-    const val compileSdk = 31
-    const val buildTools = "30.0.3"
-    const val targetSdk = 30
+    const val compileSdk = 33
+    const val targetSdk = 33
     const val minSdk = 23
     const val versionCode = 1
-    const val build = "7.1.3"
+    const val build = "7.3.0"
     const val kotlin = "1.6.21"
     const val gsm = "4.3.10"
     const val firebasePlugin = "2.9.1"
@@ -15,10 +14,10 @@ object VersionsBuild {
 
 object VersionsApp {
     const val core = "1.6.0"
-    const val appcompat = "1.3.1"
-    const val constraint = "2.1.0"
+    const val appcompat = "1.5.1"
+    const val constraint = "2.1.4"
     const val legacy = "1.0.0"
-    const val navigation = "2.3.2"
+    const val navigation = "2.5.2"
     const val lifecycle = "2.4.0"
     const val dataStore = "1.0.0"
     const val room = "2.4.2"
@@ -30,7 +29,7 @@ object VersionsApp {
     const val glide = "4.12.0"
     const val shimmer = "0.5.0"
     const val firebase = "30.1.0"
-    const val firebaseCore = "21.0.0"
+    const val firebaseCore = "11.6.2"
     const val okhttp = "4.9.0"
     const val retrofit = "2.9.0"
     const val javax = "1"
@@ -102,6 +101,9 @@ object AppVersions {
     // Koin
     const val koinCore = "io.insert-koin:koin-core:${VersionsApp.koin}"
     const val koinAndroid = "io.insert-koin:koin-android:${VersionsApp.koin}"
+
+    // Firebase
+    const val firebaseCore = "com.google.firebase:firebase-core:${VersionsApp.firebaseCore}"
 
     // Glide
     const val glide = "com.github.bumptech.glide:glide:${VersionsApp.glide}"
